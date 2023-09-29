@@ -11,7 +11,9 @@ import SwiftUI
 struct GitCatApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView(viewModel: MainViewModel(changesViewModel: ChangesViewModel(),
+                                              fileListViewModel: FileListViewModel(changedFilesListViewModel: ChangedFilesListViewModel(gitService: GitService()),
+                                                                                   fileService: FileService())))
         }
     }
 }
