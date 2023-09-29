@@ -12,7 +12,7 @@ struct GitCatApp: App {
     var body: some Scene {
         WindowGroup {
             MainView(viewModel: MainViewModel(changesViewModel: ChangesViewModel(),
-                                              fileListViewModel: FileListViewModel(changedFilesListViewModel: ChangedFilesListViewModel(gitService: GitService()),
+                                              fileListViewModel: FileListViewModel(changedFilesListViewModel: ChangedFilesListViewModel(gitService: GitService(shellService: ShellService())),
                                                                                    fileService: FileService())))
         }
     }

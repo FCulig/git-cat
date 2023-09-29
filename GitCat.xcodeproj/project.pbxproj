@@ -25,6 +25,7 @@
 		D01F56222AC455B800AF4342 /* GitCatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01F56212AC455B800AF4342 /* GitCatTests.swift */; };
 		D01F562C2AC455B800AF4342 /* GitCatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01F562B2AC455B800AF4342 /* GitCatUITests.swift */; };
 		D01F562E2AC455B800AF4342 /* GitCatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01F562D2AC455B800AF4342 /* GitCatUITestsLaunchTests.swift */; };
+		D02109E32AC76B9200A64C4F /* ShellService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02109E22AC76B9200A64C4F /* ShellService.swift */; };
 		DA8E35EA77562C33F2FDDECA /* Pods_GitCat_GitCatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD796F51C3E23945D15A677D /* Pods_GitCat_GitCatUITests.framework */; };
 		E4A4C100AB8629E1A9600C2E /* Pods_GitCatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF10FD98243EE860794946C5 /* Pods_GitCatTests.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,7 @@
 		D01F56272AC455B800AF4342 /* GitCatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitCatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D01F562B2AC455B800AF4342 /* GitCatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitCatUITests.swift; sourceTree = "<group>"; };
 		D01F562D2AC455B800AF4342 /* GitCatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitCatUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D02109E22AC76B9200A64C4F /* ShellService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellService.swift; sourceTree = "<group>"; };
 		F6547F92E8CCE7082977FEE3 /* Pods-GitCat-GitCatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat-GitCatUITests.debug.xcconfig"; path = "Target Support Files/Pods-GitCat-GitCatUITests/Pods-GitCat-GitCatUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FD796F51C3E23945D15A677D /* Pods_GitCat_GitCatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCat_GitCatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF10FD98243EE860794946C5 /* Pods_GitCatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +192,7 @@
 			children = (
 				D01888242AC469BE00CB874D /* FileService.swift */,
 				D0061AF82AC4BC190051DEA0 /* GitService.swift */,
+				D02109E22AC76B9200A64C4F /* ShellService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02109E32AC76B9200A64C4F /* ShellService.swift in Sources */,
 				D018881E2AC45C1600CB874D /* MainViewModel.swift in Sources */,
 				D01888222AC462AD00CB874D /* FileListViewModel.swift in Sources */,
 				D01888192AC459CF00CB874D /* FileListView.swift in Sources */,

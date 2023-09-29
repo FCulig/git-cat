@@ -9,31 +9,18 @@ import Foundation
 
 // MARK: - GitService -
 class GitService {
-    // TODO: Make global file for these user defaults keys
-    private static let workspacePathUserDefaultsKey = "WorkspacePath"
+    private let shellService: ShellService
+    
+    init(shellService: ShellService) {
+        self.shellService = shellService
+    }
 }
 
 // MARK: - Public methods -
 
 extension GitService {
     func getChangedFiles() -> [File] {
-        guard let workingDirectory = UserDefaults.standard.string(forKey: Self.workspacePathUserDefaultsKey) else { return [] }
-        
-        // TODO: Move this to shell service
-        let task = Process()
-        let pipe = Pipe()
-        
-        task.standardOutput = pipe
-        task.standardError = pipe
-        task.arguments = ["-c", "git status"]
-        task.launchPath = "/bin/zsh"
-        task.standardInput = nil
-        task.currentDirectoryPath = workingDirectory
-        task.launch()
-        
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)!
-        
+        let output = shellService.execute("git status")
         return parseGitStatusOutput(output)
     }
 }
@@ -42,6 +29,7 @@ extension GitService {
 
 private extension GitService {
     func parseGitStatusOutput(_ output: String) -> [File] {
+        var changedFiles: [File] = []
         let stagedChangesSplitted = output.split(separator: "Changes to be committed:")
         var stagedChanges = stagedChangesSplitted[1]
         
@@ -54,9 +42,15 @@ private extension GitService {
 
         let stagedFiles = parseStageingStatusSection(String(stagedChanges), stageingStatus: .staged)
         let unstagedFiles = parseStageingStatusSection(String(unstagedChanges), stageingStatus: .unstaged)
-        let untrackedFiles = parseStageingStatusSection(String(untrackedFilesSplitted[1]), stageingStatus: .untracked)
         
-        return stagedFiles + unstagedFiles + untrackedFiles
+        changedFiles += stagedFiles
+        changedFiles += unstagedFiles
+        
+        if untrackedFilesSplitted.count == 2 {
+            changedFiles += parseStageingStatusSection(String(untrackedFilesSplitted[1]), stageingStatus: .untracked)
+        }
+        
+        return changedFiles
     }
     
     func parseStageingStatusSection(_ output: String, stageingStatus: StageingStatus) -> [File] {
