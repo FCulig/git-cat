@@ -7,20 +7,18 @@
 
 // MARK: - FileStatus -
 enum FileStatus: String {
-    case new = "N"
+    case new = "A"
     case modified = "M"
     case deleted = "D"
+    case renamed = "R"
+    case unmodified = " "
 }
 
 // MARK: - File -
 struct File: Hashable {
     let filePath: String
-    let status: FileStatus
-    let isStaged: Bool
-    
-    init(filePath: String, status: FileStatus, isStaged: Bool = false) {
-        self.filePath = filePath
-        self.status = status
-        self.isStaged = isStaged
-    }
+    /// Status of the file in the stageing area.
+    let indexStatus: FileStatus
+    /// Status of the file in the working directory. (Not staged area)
+    let workingTreeStatus: FileStatus
 }

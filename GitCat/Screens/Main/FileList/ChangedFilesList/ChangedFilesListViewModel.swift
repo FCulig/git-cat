@@ -23,5 +23,6 @@ class ChangedFilesListViewModel: ObservableObject {
         self.gitService = gitService
         
         changedFiles = gitService.getChangedFiles()
+        changedFiles.forEach{ print($0) }
     }
 }
