@@ -7,21 +7,20 @@
 
 // MARK: - FileStatus -
 enum FileStatus: String {
-    case new = "new file"
-    case modified
-    case deleted
-}
-
-// MARK: - StageingStatus -
-enum StageingStatus: String, Hashable {
-    case staged
-    case unstaged
-    case untracked
+    case new = "N"
+    case modified = "M"
+    case deleted = "D"
 }
 
 // MARK: - File -
 struct File: Hashable {
     let filePath: String
     let status: FileStatus
-    let stageingStatus: StageingStatus
+    let isStaged: Bool
+    
+    init(filePath: String, status: FileStatus, isStaged: Bool = false) {
+        self.filePath = filePath
+        self.status = status
+        self.isStaged = isStaged
+    }
 }

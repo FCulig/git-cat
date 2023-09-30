@@ -24,7 +24,7 @@ extension ShellService {
         
         task.standardOutput = pipe
         task.standardError = pipe
-        task.arguments = ["-c", "git status"]
+        task.arguments = ["-c", command]
         task.launchPath = "/bin/zsh"
         task.standardInput = nil
         task.currentDirectoryPath = workingDirectory

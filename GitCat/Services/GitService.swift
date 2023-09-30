@@ -20,7 +20,7 @@ class GitService {
 
 extension GitService {
     func getChangedFiles() -> [File] {
-        let output = shellService.execute("git status")
+        let output = shellService.execute("git status --short")
         return parseGitStatusOutput(output)
     }
 }
@@ -28,63 +28,16 @@ extension GitService {
 // MARK: - Parsing git status output -
 
 private extension GitService {
+    // Example output:
+    // M  GitCat/Models/File.swift
+    //  M GitCat/Services/GitService.swift
+    //
+    // File.swift is modified and the change is staged.
+    // GitService.swift is modified and the change is not staged.
     func parseGitStatusOutput(_ output: String) -> [File] {
-        var changedFiles: [File] = []
-        let stagedChangesSplitted = output.split(separator: "Changes to be committed:")
-        var stagedChanges = stagedChangesSplitted[1]
-        
-        let unstagedChangesSplitted = stagedChanges.split(separator: "Changes not staged for commit:")
-        var unstagedChanges = unstagedChangesSplitted[1]
-        stagedChanges = unstagedChangesSplitted[0]
-        
-        let untrackedFilesSplitted = unstagedChanges.split(separator: "Untracked files:")
-        unstagedChanges = untrackedFilesSplitted[0]
-
-        let stagedFiles = parseStageingStatusSection(String(stagedChanges), stageingStatus: .staged)
-        let unstagedFiles = parseStageingStatusSection(String(unstagedChanges), stageingStatus: .unstaged)
-        
-        changedFiles += stagedFiles
-        changedFiles += unstagedFiles
-        
-        if untrackedFilesSplitted.count == 2 {
-            changedFiles += parseStageingStatusSection(String(untrackedFilesSplitted[1]), stageingStatus: .untracked)
-        }
-        
-        return changedFiles
-    }
-    
-    func parseStageingStatusSection(_ output: String, stageingStatus: StageingStatus) -> [File] {
-        var splittedByLines = output.split(separator: "\n")
-            
-        // Remove line starting with (use "git...
-        splittedByLines.removeFirst()
-        
-        // Staged files section has two (use "git... lines
-        if stageingStatus == .unstaged {
-            splittedByLines.removeFirst()
-        }
-        
-        let linesWithNoWhitespaces = splittedByLines.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        
-        // Using .forEach beacuse there was trouble unwraping touple in compact map
-        var changedFiles: [File] = []
-        linesWithNoWhitespaces.forEach {
-            guard let file = stageingStatus == .untracked ? parseUntrackedLine($0) : parseTrackedLine($0, isStaged: true) else { return }
-            changedFiles.append(file)
-        }
-        
-        return changedFiles
-    }
-    
-    func parseUntrackedLine(_ line: String) -> File {
-        File(filePath: line, status: .new, stageingStatus: .untracked)
-    }
-    
-    func parseTrackedLine(_ line: String, isStaged: Bool) -> File? {
-        let splittedLine = line.split(separator: ":")
-        let filePath = splittedLine[1].trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let fileStatus = FileStatus(rawValue: String(splittedLine[0])) else { return nil }
-        
-        return File(filePath: filePath, status: fileStatus, stageingStatus: isStaged ? .staged : .unstaged)
+        output.split(separator: "\n")
+            .map { ($0.split(separator: " "), $0.first != " ") }
+            .map { (FileStatus(rawValue: String($0.0[0])), String($0.0[1]), $0.1) }
+            .map { File(filePath: $0.1, status: $0.0 ?? .new, isStaged: $0.2) }
     }
 }
