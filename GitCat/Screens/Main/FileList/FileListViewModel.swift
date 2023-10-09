@@ -15,11 +15,13 @@ class FileListViewModel: ObservableObject {
     
     private static let workspacePathUserDefaultsKey = "WorkspacePath"
     private let fileService: FileService
+    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Public properties -
     
     @Published var isWorkspaceSelected: Bool
     @Published var isShowingInvalidWorkspaceAlert = false
+    @Published var selectedFile: File?
     
     let changedFilesListViewModel: ChangedFilesListViewModel
     
@@ -31,6 +33,8 @@ class FileListViewModel: ObservableObject {
         self.fileService = fileService
         
         isWorkspaceSelected = UserDefaults.standard.string(forKey: Self.workspacePathUserDefaultsKey) != nil
+        
+        subscribeFileSelection()
     }
 }
 
@@ -62,5 +66,11 @@ private extension FileListViewModel {
     func isValid(directory url: String) -> Bool {
         let contents = fileService.getContents(of: url)
         return contents.contains(".git")
+    }
+    
+    func subscribeFileSelection() {
+        changedFilesListViewModel.$selectedFile
+            .assign(to: \.selectedFile, on: self)
+            .store(in: &cancellables)
     }
 }

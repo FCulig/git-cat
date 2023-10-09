@@ -39,6 +39,9 @@ struct ChangedFilesListView: View {
         ScrollView {
             ForEach(viewModel.changedFiles, id: \.self) { changedFile in
                 Text(changedFile.filePath)
+                    .onTapGesture {
+                        viewModel.select(file: changedFile)
+                    }
             }
         }
     }

@@ -7,5 +7,6 @@
 
 // MARK: - GitCommands-
 enum GitCommands: String {
+    case diff = "git diff"
     case status = "git status --short"
 }

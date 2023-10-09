@@ -23,6 +23,11 @@ extension GitService {
         let output = shellService.execute(GitCommands.status.rawValue)
         return parseGitStatusOutput(output)
     }
+    
+    func getChangesFor(file: File) -> String {
+        let output = shellService.execute("\(GitCommands.diff.rawValue) \(file.filePath)")
+        return parseGitDiffOutput(output)
+    }
 }
 
 // MARK: - Parsing git status output -
@@ -60,5 +65,14 @@ private extension GitService {
             }
         
         return files
+    }
+}
+
+// MARK: - Parsing git diff output -
+
+private extension GitService {
+    func parseGitDiffOutput(_ output: String) -> String {
+        // TODO: Implement parsing
+        return output
     }
 }

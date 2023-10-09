@@ -21,7 +21,7 @@ struct ChangesView: View {
     // MARK: - Body -
     
     var body: some View {
-        Text("Changes")
+        Text(viewModel.changes)
     }
 }
 
