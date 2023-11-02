@@ -38,11 +38,10 @@ struct ChangedFilesListView: View {
     var changedFilesList: some View {
         ScrollView {
             ForEach(viewModel.changedFiles, id: \.self) { changedFile in
-                Text(changedFile.filePath)
+                ChangedFileListItemView(viewModel: changedFile)
                     .onTapGesture {
-                        viewModel.select(file: changedFile)
+                        viewModel.select(itemViewModel: changedFile)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }

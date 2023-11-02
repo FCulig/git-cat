@@ -15,7 +15,7 @@ class ChangedFilesListViewModel: ObservableObject {
     
     // MARK: - Public properties -
     
-    @Published var changedFiles: [File] = []
+    @Published var changedFiles: [ChangedFileListItemViewModel] = []
     @Published var selectedFile: File?
     
     // MARK: - Initializer -
@@ -24,13 +24,19 @@ class ChangedFilesListViewModel: ObservableObject {
         self.gitService = gitService
         
         changedFiles = gitService.getChangedFiles()
+            .map {
+                ChangedFileListItemViewModel(file: $0)
+            }
     }
 }
 
 // MARK: - Public methods -
 
 extension ChangedFilesListViewModel {
-    func select(file: File) {
-        selectedFile = file
+    func select(itemViewModel: ChangedFileListItemViewModel) {
+        selectedFile = itemViewModel.file
+        
+        changedFiles.forEach { $0.isSelected = false }
+        changedFiles.first(where: { $0 == itemViewModel })?.isSelected = true
     }
 }
