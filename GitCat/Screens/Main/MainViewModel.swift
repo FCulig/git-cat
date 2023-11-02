@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftUI
 
 // MARK: - MainViewModel -
 class MainViewModel: ObservableObject {
@@ -14,6 +15,8 @@ class MainViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Public properties -
+    
+    @Published var fileListWidth: CGFloat = 300
     
     let changesViewModel: ChangesViewModel
     let fileListViewModel: FileListViewModel
@@ -26,6 +29,7 @@ class MainViewModel: ObservableObject {
         self.fileListViewModel = fileListViewModel
         
         subscribeToSelectedFile()
+        subscribeToFileListWidth()
     }
 }
 
@@ -36,6 +40,16 @@ private extension MainViewModel {
         fileListViewModel.$selectedFile
             .sink { [weak self] in
                 self?.changesViewModel.getChangesIn(file: $0)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func subscribeToFileListWidth() {
+        $fileListWidth
+            .dropFirst()
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink {
+                print("Should save width: \($0)")
             }
             .store(in: &cancellables)
     }

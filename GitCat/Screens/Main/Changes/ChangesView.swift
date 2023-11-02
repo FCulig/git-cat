@@ -22,6 +22,7 @@ struct ChangesView: View {
     
     var body: some View {
         Text(viewModel.changes)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

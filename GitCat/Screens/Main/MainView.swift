@@ -18,13 +18,19 @@ struct MainView: View {
     }
     
     // MARK: - Body -
+    
     var body: some View {
-        HStack {
-            FileListView(viewModel: viewModel.fileListViewModel)
+        HSplitView {
+            ResizableView(width: $viewModel.fileListWidth, dividerLocation: .trailing) {
+                FileListView(viewModel: viewModel.fileListViewModel)
+            }
+//            .frame(minWidth: 300)
+//            .frame(width: viewModel.fileListWidth)
             
-            Divider()
-            
-            ChangesView(viewModel: viewModel.changesViewModel)
+            ResizableView() {
+                ChangesView(viewModel: viewModel.changesViewModel)
+            }
+//            .frame(minWidth: 300)
         }
     }
 }

@@ -42,6 +42,7 @@ struct ChangedFilesListView: View {
                     .onTapGesture {
                         viewModel.select(file: changedFile)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }
