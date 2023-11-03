@@ -21,8 +21,12 @@ struct ChangesView: View {
     // MARK: - Body -
     
     var body: some View {
-        Text(viewModel.changes)
-            .frame(maxWidth: .infinity, alignment: .leading)
+        VStack(spacing:0) {
+            ForEach(viewModel.changes) {
+                Text($0.change)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
     }
 }
 

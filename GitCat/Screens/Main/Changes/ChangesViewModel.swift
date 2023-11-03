@@ -15,7 +15,8 @@ class ChangesViewModel: ObservableObject {
     
     // MARK: - Public properties -
     
-    @Published var changes: String = ""
+//    @Published var changes: [Substring] = []
+    @Published var changes: [Change] = []
     
     // MARK: - Initializer -
     
@@ -29,10 +30,28 @@ class ChangesViewModel: ObservableObject {
 extension ChangesViewModel {
     func getChangesIn(file: File?) {
         guard let file else {
-            changes = ""
+            changes = []
             return
         }
         
-        changes = gitService.getChangesFor(file: file)
+        var changesStringByLine = gitService.getChangesFor(file: file).split(separator: "\n")
+        let firstChangeIndex = changesStringByLine.firstIndex(where: { $0.starts(with: "@@") })
+        
+        guard let firstChangeIndex else { return }
+        changesStringByLine.removeFirst(firstChangeIndex)
+        
+        var change = ""
+        var tmpChanges: [Change] = []
+        changesStringByLine.forEach {
+            if $0.starts(with: "@@"), change != "" {
+                tmpChanges.append(Change(change: change))
+                change = ""
+            }
+            
+            change += $0 + "\n"
+        }
+        
+        tmpChanges.append(Change(change: change))
+        changes = tmpChanges
     }
 }
