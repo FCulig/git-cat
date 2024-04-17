@@ -15,7 +15,6 @@ class ChangesViewModel: ObservableObject {
     
     // MARK: - Public properties -
     
-//    @Published var changes: [Substring] = []
     @Published var changes: [Change] = []
     
     // MARK: - Initializer -

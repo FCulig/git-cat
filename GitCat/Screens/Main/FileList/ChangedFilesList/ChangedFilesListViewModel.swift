@@ -24,9 +24,10 @@ class ChangedFilesListViewModel: ObservableObject {
         self.gitService = gitService
         
         changedFiles = gitService.getChangedFiles()
-            .map {
-                ChangedFileListItemViewModel(file: $0)
-            }
+            .map { ChangedFileListItemViewModel(file: $0) }
+        
+        guard let firstChangedItem = changedFiles.first else {  return }
+        select(itemViewModel: firstChangedItem)
     }
 }
 
