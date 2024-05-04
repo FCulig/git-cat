@@ -5,11 +5,22 @@
 //  Created by Filip Čulig on 27.09.2023..
 //
 
-import Foundation
+import Combine
 
 // MARK: - GitService -
 class GitService {
+    // MARK: - Public properties -
+    
+    public var changedFiles: AnyPublisher<[File], Never> {
+        changedFilesSubject.eraseToAnyPublisher()
+    }
+    
+    // MARK: - Private properties -
+    
     private let shellService: ShellService
+    private let changedFilesSubject: CurrentValueSubject<[File], Never> = .init([])
+    
+    // MARK: - Initializer -
     
     init(shellService: ShellService) {
         self.shellService = shellService
@@ -19,14 +30,25 @@ class GitService {
 // MARK: - Public methods -
 
 extension GitService {
-    func getChangedFiles() -> [File] {
+    func refreshChangedFiles() {
         let output = shellService.execute(GitCommands.status.rawValue)
-        return parseGitStatusOutput(output)
+        changedFilesSubject.send(parseGitStatusOutput(output))
     }
     
     func getChangesFor(file: File) -> String {
-        let output = shellService.execute("\(GitCommands.diff.rawValue) \(file.filePath)")
+        // TODO: Factory for this making of commands?
+        let output = shellService.execute("\(GitCommands.diff.rawValue) \(file.isStaged ? "--staged" : "") \(file.filePath)")
         return parseGitDiffOutput(output)
+    }
+    
+    func stage(file: File) {
+        shellService.execute("\(GitCommands.add.rawValue) \(file.filePath)")
+        refreshChangedFiles()
+    }
+    
+    func unstage(file: File) {
+        shellService.execute("\(GitCommands.restore.rawValue) \(file.filePath)")
+        refreshChangedFiles()
     }
 }
 

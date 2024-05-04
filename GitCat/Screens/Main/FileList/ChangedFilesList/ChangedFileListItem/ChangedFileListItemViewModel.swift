@@ -31,7 +31,7 @@ final class ChangedFileListItemViewModel: ObservableObject {
 
 extension ChangedFileListItemViewModel: Equatable, Hashable {
     static func == (lhs: ChangedFileListItemViewModel, rhs: ChangedFileListItemViewModel) -> Bool {
-        lhs.file == rhs.file
+        lhs.file == rhs.file && lhs.id == rhs.id
     }
     
     public func hash(into hasher: inout Hasher) {

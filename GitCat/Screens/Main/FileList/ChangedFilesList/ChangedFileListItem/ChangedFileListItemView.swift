@@ -16,9 +16,15 @@ struct ChangedFileListItemView: View {
     }
     
     var body: some View {
-        Text(viewModel.file.filePath)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(viewModel.isSelected ? .gray : .clear)
+        HStack(spacing: 0) {
+            Text(viewModel.file.indexStatus.statusSymbol)
+            
+            Text(viewModel.file.workingTreeStatus.statusSymbol)
+            
+            Text(viewModel.file.filePath)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .background(viewModel.isSelected ? .gray : .clear)
     }
 }
 

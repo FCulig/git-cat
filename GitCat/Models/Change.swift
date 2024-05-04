@@ -10,5 +10,15 @@ import Foundation
 // MARK: - Change -
 struct Change: Identifiable {
     let id = UUID()
-    let change: String
+    let changes: [ChangeChunk]
+    
+    init(changeChunk: String) {
+        changes = changeChunk.split(separator: "\n").map(ChangeChunk.init)
+    }
+}
+
+// MARK: - Change chunk -
+struct ChangeChunk: Identifiable {
+    let id = UUID()
+    let changes: Substring
 }

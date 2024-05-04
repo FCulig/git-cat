@@ -16,7 +16,7 @@ class ShellService {
 // MARK: - Public methods -
 
 extension ShellService {
-    func execute(_ command: String) -> String {
+    @discardableResult func execute(_ command: String) -> String {
         guard let workingDirectory = UserDefaults.standard.string(forKey: Self.workspacePathUserDefaultsKey) else { return "" }
         
         let task = Process()

@@ -12,6 +12,7 @@ class ChangedFilesListViewModel: ObservableObject {
     // MARK: - Private properties -
     
     private let gitService: GitService
+    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Public properties -
     
@@ -23,8 +24,8 @@ class ChangedFilesListViewModel: ObservableObject {
     init(gitService: GitService) {
         self.gitService = gitService
         
-        changedFiles = gitService.getChangedFiles()
-            .map { ChangedFileListItemViewModel(file: $0) }
+        subscribeChanges()
+        gitService.refreshChangedFiles()
         
         guard let firstChangedItem = changedFiles.first else {  return }
         select(itemViewModel: firstChangedItem)
@@ -39,5 +40,16 @@ extension ChangedFilesListViewModel {
         
         changedFiles.forEach { $0.isSelected = false }
         changedFiles.first(where: { $0 == itemViewModel })?.isSelected = true
+    }
+}
+
+// MARK: - Private methods -
+
+private extension ChangedFilesListViewModel {
+    func subscribeChanges() {
+        gitService.changedFiles
+            .map { changedFiles in changedFiles.map(ChangedFileListItemViewModel.init)}
+            .sink { [weak self] in self?.changedFiles = $0 }
+            .store(in: &cancellables)
     }
 }

@@ -12,6 +12,21 @@ enum FileStatus: String {
     case deleted = "D"
     case renamed = "R"
     case unmodified = " "
+    
+    var statusSymbol: String {
+        switch self {
+        case .new:
+            "🇦"
+        case .modified:
+            "🇷"
+        case .deleted:
+            "🇩"
+        case .renamed:
+            "🇷"
+        case .unmodified:
+            "     "
+        }
+    }
 }
 
 // MARK: - File -
@@ -21,4 +36,13 @@ struct File: Hashable {
     let indexStatus: FileStatus
     /// Status of the file in the working directory. (Not staged area)
     let workingTreeStatus: FileStatus
+}
+
+// MARK: - isStaged -
+
+extension File {
+    /// Returns if file is staged. File is stage only if working tree status is `unmodified`.
+    var isStaged: Bool {
+        workingTreeStatus == .unmodified
+    }
 }
