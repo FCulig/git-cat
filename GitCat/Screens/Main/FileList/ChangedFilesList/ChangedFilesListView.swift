@@ -30,7 +30,7 @@ struct ChangedFilesListView: View {
     // MARK: - No changes -
     
     var noChangesMessage: some View {
-        Text("There are no changes")
+        Text("There are no changed files")
     }
     
     // MARK: - Changes -

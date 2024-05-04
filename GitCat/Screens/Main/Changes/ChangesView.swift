@@ -95,7 +95,7 @@ private extension ChangesView {
 
 private extension ChangesView {
     var noChangesText: some View {
-        Text("No changes")
+        Text("There are no changes")
     }
 }
 
