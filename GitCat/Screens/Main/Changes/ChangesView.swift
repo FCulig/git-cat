@@ -21,6 +21,18 @@ struct ChangesView: View {
     // MARK: - Body -
     
     var body: some View {
+        if viewModel.changes.isEmpty {
+            noChangesText
+        } else {
+            changes
+        }
+    }
+}
+
+// MARK: - Changes -
+
+private extension ChangesView {
+    var changes: some View {
         VStack(spacing: 0) {
             // For now whole file is being staged.
             // TODO: Implement staging of each chunk.
@@ -76,6 +88,14 @@ private extension ChangesView {
         } else if firstCharacther == "+" {
             Color.green
         }
+    }
+}
+
+// MARK: - No changes text -
+
+private extension ChangesView {
+    var noChangesText: some View {
+        Text("No changes")
     }
 }
 
