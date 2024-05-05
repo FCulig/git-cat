@@ -18,7 +18,7 @@ enum FileStatus: String {
         case .new:
             "🇦"
         case .modified:
-            "🇷"
+            "🇲"
         case .deleted:
             "🇩"
         case .renamed:

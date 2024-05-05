@@ -49,7 +49,13 @@ private extension ChangedFilesListViewModel {
     func subscribeChanges() {
         gitService.changedFiles
             .map { changedFiles in changedFiles.map(ChangedFileListItemViewModel.init)}
-            .sink { [weak self] in self?.changedFiles = $0 }
+            .sink { [weak self] in
+                guard let self else { return }
+                self.changedFiles = $0
+                
+                guard let selectedFile = self.changedFiles.first(where: { $0.file.filePath == self.selectedFile?.filePath }) else { return }
+                self.select(itemViewModel: selectedFile)
+            }
             .store(in: &cancellables)
     }
 }
