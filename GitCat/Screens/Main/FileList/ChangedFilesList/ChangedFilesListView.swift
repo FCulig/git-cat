@@ -36,13 +36,28 @@ struct ChangedFilesListView: View {
     // MARK: - Changes -
     
     var changedFilesList: some View {
-        ScrollView {
-            ForEach(viewModel.changedFiles, id: \.self) { changedFile in
-                ChangedFileListItemView(viewModel: changedFile)
-                    .onTapGesture {
-                        viewModel.select(itemViewModel: changedFile)
-                    }
+        VStack(spacing: 20) {
+            ScrollView {
+                ForEach(viewModel.changedFiles, id: \.self) { changedFile in
+                    ChangedFileListItemView(viewModel: changedFile)
+                        .onTapGesture {
+                            viewModel.select(itemViewModel: changedFile)
+                        }
+                }
             }
+            
+            if viewModel.isCommitMessageTextFieldVisible {
+                TextField(text: $viewModel.commitMessage, label: { Text("Enter your commit message") })
+            }
+            
+            Button("Commit changes", action: {
+                if viewModel.isCommitMessageTextFieldVisible {
+                    viewModel.commitChanges()
+                } else {
+                    viewModel.isCommitMessageTextFieldVisible = true
+                }
+            })
+            .disabled(viewModel.isCommitMessageTextFieldVisible ? viewModel.commitMessage.isEmpty : false)
         }
     }
 }

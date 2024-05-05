@@ -12,6 +12,7 @@
 		D0061AF72AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0061AF62AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift */; };
 		D0061AF92AC4BC190051DEA0 /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0061AF82AC4BC190051DEA0 /* GitService.swift */; };
 		D0061AFC2AC588460051DEA0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0061AFB2AC588460051DEA0 /* File.swift */; };
+		D017CE0C2BE77C1600040BD6 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017CE0B2BE77C1600040BD6 /* AppColor.swift */; };
 		D01888162AC459AA00CB874D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01888152AC459AA00CB874D /* MainView.swift */; };
 		D01888192AC459CF00CB874D /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01888182AC459CF00CB874D /* FileListView.swift */; };
 		D018881C2AC45AD000CB874D /* ChangesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018881B2AC45AD000CB874D /* ChangesView.swift */; };
@@ -63,6 +64,7 @@
 		D0061AF62AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFilesListViewModel.swift; sourceTree = "<group>"; };
 		D0061AF82AC4BC190051DEA0 /* GitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
 		D0061AFB2AC588460051DEA0 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		D017CE0B2BE77C1600040BD6 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
 		D01888152AC459AA00CB874D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D01888182AC459CF00CB874D /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		D018881B2AC45AD000CB874D /* ChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesView.swift; sourceTree = "<group>"; };
@@ -159,6 +161,14 @@
 				D0450CCD2AF539E400927A86 /* Change.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D017CE0A2BE77C0700040BD6 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				D017CE0B2BE77C1600040BD6 /* AppColor.swift */,
+			);
+			path = Colors;
 			sourceTree = "<group>";
 		};
 		D01888132AC4593800CB874D /* Main */ = {
@@ -283,6 +293,7 @@
 		D0450CC42AF2EEE800927A86 /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				D017CE0A2BE77C0700040BD6 /* Colors */,
 				D0450CC52AF2EEF000927A86 /* ResizableView */,
 			);
 			path = ReusableComponents;
@@ -518,6 +529,7 @@
 				D0061AF72AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift in Sources */,
 				D0450CCA2AF3D68900927A86 /* ChangedFileListItemView.swift in Sources */,
 				D0061AF92AC4BC190051DEA0 /* GitService.swift in Sources */,
+				D017CE0C2BE77C1600040BD6 /* AppColor.swift in Sources */,
 				D0061AFC2AC588460051DEA0 /* File.swift in Sources */,
 				D01888252AC469BE00CB874D /* FileService.swift in Sources */,
 				D02109E62AC835AF00A64C4F /* GitCommands.swift in Sources */,
