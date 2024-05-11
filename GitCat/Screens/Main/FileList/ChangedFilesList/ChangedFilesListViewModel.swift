@@ -36,8 +36,8 @@ class ChangedFilesListViewModel: ObservableObject {
 // MARK: - Public methods -
 
 extension ChangedFilesListViewModel {
-    func select(itemViewModel: ChangedFileListItemViewModel) {
-        selectedFile = itemViewModel.file
+    func select(itemViewModel: ChangedFileListItemViewModel?) {
+        selectedFile = itemViewModel?.file
         
         changedFiles.forEach { $0.isSelected = false }
         changedFiles.first(where: { $0 == itemViewModel })?.isSelected = true
@@ -47,6 +47,7 @@ extension ChangedFilesListViewModel {
         gitService.commit(message: commitMessage)
         commitMessage = ""
         
+        // TODO: This does not work for some reason
         if shouldPushChanges {
             gitService.push()
         }
@@ -63,7 +64,11 @@ private extension ChangedFilesListViewModel {
                 guard let self else { return }
                 self.changedFiles = $0
                 
-                guard let selectedFile = self.changedFiles.first(where: { $0.file.filePath == self.selectedFile?.filePath }) else { return }
+                guard let selectedFile = self.changedFiles.first(where: { $0.file.filePath == self.selectedFile?.filePath }) else {
+                    self.select(itemViewModel: nil)
+                    return
+                }
+                
                 self.select(itemViewModel: selectedFile)
             }
             .store(in: &cancellables)
