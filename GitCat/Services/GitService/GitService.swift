@@ -31,8 +31,14 @@ class GitService {
 
 extension GitService {
     func refreshChangedFiles() {
-        let output = shellService.execute(GitCommands.status.rawValue)
+        let output = shellService.execute("\(GitCommands.status.rawValue) --short")
         changedFilesSubject.send(parseGitStatusOutput(output))
+    }
+    
+    func getNumberOfCommitsBehindRemote() -> Int {
+        let output = shellService.execute(GitCommands.status.rawValue)
+        print(output)
+        return 0
     }
     
     func getChangesFor(file: File) -> String {
