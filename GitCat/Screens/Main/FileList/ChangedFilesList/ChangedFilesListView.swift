@@ -26,25 +26,22 @@ struct ChangedFilesListView: View {
             changedFilesList
         }
     }
-    
-    // MARK: - No changes -
-    
+}
+
+// MARK: - No changes -
+
+private extension ChangedFilesListView {
     var noChangesMessage: some View {
         Text("There are no changed files")
     }
+}
     
-    // MARK: - Changes -
+// MARK: - Changed files -
     
+private extension ChangedFilesListView {
     var changedFilesList: some View {
         VStack(spacing: 20) {
-            ScrollView {
-                ForEach(viewModel.changedFiles, id: \.self) { changedFile in
-                    ChangedFileListItemView(viewModel: changedFile)
-                        .onTapGesture {
-                            viewModel.select(itemViewModel: changedFile)
-                        }
-                }
-            }
+            changedFiles
             
             if viewModel.isCommitMessageTextFieldVisible {
                 TextField(text: $viewModel.commitMessage, label: { Text("Enter your commit message") })
@@ -58,6 +55,17 @@ struct ChangedFilesListView: View {
                 }
             })
             .disabled(viewModel.isCommitMessageTextFieldVisible ? viewModel.commitMessage.isEmpty : false)
+        }
+    }
+    
+    var changedFiles: some View {
+        ScrollView {
+            ForEach(viewModel.changedFiles, id: \.self) { changedFile in
+                ChangedFileListItemView(viewModel: changedFile)
+                    .onTapGesture {
+                        viewModel.select(itemViewModel: changedFile)
+                    }
+            }
         }
     }
 }
