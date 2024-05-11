@@ -33,13 +33,15 @@ struct ChangesView: View {
 
 private extension ChangesView {
     var changes: some View {
-        VStack(spacing: 0) {
-            // For now whole file is being staged.
-            // TODO: Implement staging of each chunk.
-            stageControlButtons
-            
-            ForEach(viewModel.changes) { changeChunk in
-                makeChangeChunk(for: changeChunk)
+        ScrollView {
+            VStack(spacing: 0) {
+                // For now whole file is being staged.
+                // TODO: Implement staging of each chunk.
+                stageControlButtons
+                
+                ForEach(viewModel.changes) { changeChunk in
+                    makeChangeChunk(for: changeChunk)
+                }
             }
         }
     }

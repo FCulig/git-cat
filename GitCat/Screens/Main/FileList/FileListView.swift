@@ -26,9 +26,11 @@ struct FileListView: View {
             selectWorkspaceButton
         }
     }
+}
     
-    // MARK: - Workspace not selected -
-    
+// MARK: - Workspace not selected -
+
+private extension FileListView {
     var selectWorkspaceButton: some View {
         Button("Select workspace") {
             viewModel.showOpenPanel()
@@ -39,9 +41,11 @@ struct FileListView: View {
                   dismissButton: .default(Text("OK")))
         }
     }
+}
     
-    // MARK: - Workspace selected -
-    
+// MARK: - Workspace selected -
+
+private extension FileListView {
     var changedFilesList: some View {
         ChangedFilesListView(viewModel: viewModel.changedFilesListViewModel)
     }

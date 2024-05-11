@@ -55,6 +55,11 @@ extension GitService {
         shellService.execute("\(GitCommands.commit.rawValue) '\(message)'")
         refreshChangedFiles()
     }
+    
+    func push() {
+        shellService.execute("\(GitCommands.push.rawValue)")
+        refreshChangedFiles()
+    }
 }
 
 // MARK: - Parsing git status output -

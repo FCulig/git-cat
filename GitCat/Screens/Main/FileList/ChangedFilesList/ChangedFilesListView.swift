@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - ChangedFilesListView -
 struct ChangedFilesListView: View {
     @ObservedObject private var viewModel: ChangedFilesListViewModel
+    @FocusState private var isTextFieldFocused: Bool
     
     // MARK: - Initializer -
     
@@ -42,19 +43,7 @@ private extension ChangedFilesListView {
     var changedFilesList: some View {
         VStack(spacing: 20) {
             changedFiles
-            
-            if viewModel.isCommitMessageTextFieldVisible {
-                TextField(text: $viewModel.commitMessage, label: { Text("Enter your commit message") })
-            }
-            
-            Button("Commit changes", action: {
-                if viewModel.isCommitMessageTextFieldVisible {
-                    viewModel.commitChanges()
-                } else {
-                    viewModel.isCommitMessageTextFieldVisible = true
-                }
-            })
-            .disabled(viewModel.isCommitMessageTextFieldVisible ? viewModel.commitMessage.isEmpty : false)
+            commitSection
         }
     }
     
@@ -65,6 +54,37 @@ private extension ChangedFilesListView {
                     .onTapGesture {
                         viewModel.select(itemViewModel: changedFile)
                     }
+            }
+        }
+    }
+}
+
+// MARK: - Commit section -
+
+private extension ChangedFilesListView {
+    @ViewBuilder var commitSection: some View {
+        VStack(spacing: 8) {
+            TextField(text: $viewModel.commitMessage, label: { Text("Enter your commit message") })
+                .focused($isTextFieldFocused, equals: true)
+                .onAppear {
+                    // Remove default focus from the text field
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                        NSApp.keyWindow?.makeFirstResponder(nil)
+                    })
+                }
+            
+            HStack(spacing: 8) {
+                Button("Commit changes", action: {
+                    viewModel.commitChanges(shouldPushChanges: false)
+                    isTextFieldFocused = false
+                })
+                .disabled(viewModel.commitMessage.isEmpty)
+                
+                Button("Commit and push changes", action: {
+                    viewModel.commitChanges(shouldPushChanges: true)
+                    isTextFieldFocused = false
+                })
+                .disabled(viewModel.commitMessage.isEmpty)
             }
         }
     }

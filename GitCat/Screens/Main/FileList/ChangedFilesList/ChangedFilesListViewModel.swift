@@ -16,7 +16,6 @@ class ChangedFilesListViewModel: ObservableObject {
     
     // MARK: - Public properties -
     
-    @Published var isCommitMessageTextFieldVisible = false
     @Published var commitMessage = ""
     @Published var changedFiles: [ChangedFileListItemViewModel] = []
     @Published var selectedFile: File?
@@ -44,9 +43,13 @@ extension ChangedFilesListViewModel {
         changedFiles.first(where: { $0 == itemViewModel })?.isSelected = true
     }
     
-    func commitChanges() {
-        isCommitMessageTextFieldVisible = false
+    func commitChanges(shouldPushChanges: Bool) {
         gitService.commit(message: commitMessage)
+        commitMessage = ""
+        
+        if shouldPushChanges {
+            gitService.push()
+        }
     }
 }
 
