@@ -16,6 +16,7 @@ class ChangedFilesListViewModel: ObservableObject {
     
     // MARK: - Public properties -
     
+    @Published var commitsAheadUpstream = 0
     @Published var commitMessage = ""
     @Published var changedFiles: [ChangedFileListItemViewModel] = []
     @Published var selectedFile: File?
