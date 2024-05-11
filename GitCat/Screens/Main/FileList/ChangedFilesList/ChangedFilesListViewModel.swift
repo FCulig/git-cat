@@ -47,7 +47,6 @@ extension ChangedFilesListViewModel {
         gitService.commit(message: commitMessage)
         commitMessage = ""
         
-        // TODO: This does not work for some reason
         if shouldPushChanges {
             gitService.push()
         }
