@@ -74,6 +74,7 @@ private extension ChangedFilesListViewModel {
             .store(in: &cancellables)
         
         gitService.commitsComparedToUpstreamMessage
+            .map { $0.contains("up to date") ? "" : $0 }
             .sink { [weak self] in self?.upstreamCommitDifferece = $0 }
             .store(in: &cancellables)
     }

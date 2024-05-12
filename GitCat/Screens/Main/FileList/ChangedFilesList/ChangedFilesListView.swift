@@ -60,15 +60,17 @@ private extension ChangedFilesListView {
     }
 }
 
-// MARK: - Status compared to origin -
+// MARK: - Status compared to origin - 
 
 private extension ChangedFilesListView {
-    var comparedToUpstreamBanner: some View {
-        Text(viewModel.upstreamCommitDifferece)
-            .frame(maxWidth: .infinity)
-            .padding(16)
-            .border(.yellow, width: 1)
-            .background(.yellow.opacity(0.1))
+    @ViewBuilder var comparedToUpstreamBanner: some View {
+        if !viewModel.upstreamCommitDifferece.isEmpty {
+            Text(viewModel.upstreamCommitDifferece)
+                .frame(maxWidth: .infinity)
+                .padding(16)
+                .border(.yellow, width: 1)
+                .background(.yellow.opacity(0.1))
+        }
     }
 }
 
