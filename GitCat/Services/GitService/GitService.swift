@@ -15,10 +15,15 @@ class GitService {
         changedFilesSubject.eraseToAnyPublisher()
     }
     
+    public var commitsComparedToUpstreamMessage: AnyPublisher<String, Never> {
+        commitsComparedToUpstreamMessageSubject.eraseToAnyPublisher()
+    }
+    
     // MARK: - Private properties -
     
     private let shellService: ShellService
     private let changedFilesSubject: CurrentValueSubject<[File], Never> = .init([])
+    private let commitsComparedToUpstreamMessageSubject: PassthroughSubject<String, Never> = .init()
     
     // MARK: - Initializer -
     
@@ -32,13 +37,8 @@ class GitService {
 extension GitService {
     func refreshChangedFiles() {
         let output = shellService.execute("\(GitCommands.status.rawValue) --short")
-        changedFilesSubject.send(parseGitStatusOutput(output))
-    }
-    
-    func getNumberOfCommitsBehindRemote() -> Int {
-        let output = shellService.execute(GitCommands.status.rawValue)
-        print(output)
-        return 0
+        changedFilesSubject.send(parseGitStatusShortOutput(output))
+        updateNumberOfCommitsComparedToUpstream()
     }
     
     func getChangesFor(file: File) -> String {
@@ -68,6 +68,15 @@ extension GitService {
     }
 }
 
+// MARK: - Private methods -
+
+private extension GitService {
+    func updateNumberOfCommitsComparedToUpstream() {
+        let output = shellService.execute(GitCommands.status.rawValue)
+        commitsComparedToUpstreamMessageSubject.send(parseGitStatusOutput(output))
+    }
+}
+
 // MARK: - Parsing git status output -
 
 private extension GitService {
@@ -77,7 +86,7 @@ private extension GitService {
     //
     // File.swift is modified and the change is staged.
     // GitService.swift is modified and the change is not staged.
-    func parseGitStatusOutput(_ output: String) -> [File] {
+    func parseGitStatusShortOutput(_ output: String) -> [File] {
         var files: [File] = []
         
         // TODO: Doesnt work when splitted into map
@@ -103,6 +112,14 @@ private extension GitService {
             }
         
         return files
+    }
+    
+    // Example output:
+    // On branch main
+    // Your branch is ahead of 'origin/main' by 1 commit.
+    // ... (Not relevant, first two lines are relevant)
+    func parseGitStatusOutput(_ output: String) -> String {
+        String(output.split(separator: "\n")[1])
     }
 }
 

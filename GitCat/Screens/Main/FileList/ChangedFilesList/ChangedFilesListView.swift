@@ -64,15 +64,11 @@ private extension ChangedFilesListView {
 
 private extension ChangedFilesListView {
     var comparedToUpstreamBanner: some View {
-        Group {
-            if viewModel.commitsAheadUpstream > 0 {
-                Text("Your branch is \(viewModel.commitsAheadUpstream) \(viewModel.commitsAheadUpstream > 1 ? "commits" : "commit") ahead of upstream")
-                    .frame(maxWidth: .infinity)
-            }
-        }
-        .padding(16)
-        .border(.yellow, width: 1)
-        .background(.yellow.opacity(0.1))
+        Text(viewModel.upstreamCommitDifferece)
+            .frame(maxWidth: .infinity)
+            .padding(16)
+            .border(.yellow, width: 1)
+            .background(.yellow.opacity(0.1))
     }
 }
 

@@ -16,7 +16,7 @@ class ChangedFilesListViewModel: ObservableObject {
     
     // MARK: - Public properties -
     
-    @Published var commitsAheadUpstream = 0
+    @Published var upstreamCommitDifferece = ""
     @Published var commitMessage = ""
     @Published var changedFiles: [ChangedFileListItemViewModel] = []
     @Published var selectedFile: File?
@@ -71,6 +71,10 @@ private extension ChangedFilesListViewModel {
                 
                 self.select(itemViewModel: selectedFile)
             }
+            .store(in: &cancellables)
+        
+        gitService.commitsComparedToUpstreamMessage
+            .sink { [weak self] in self?.upstreamCommitDifferece = $0 }
             .store(in: &cancellables)
     }
 }
