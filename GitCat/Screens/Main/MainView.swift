@@ -20,17 +20,21 @@ struct MainView: View {
     // MARK: - Body -
     
     var body: some View {
-        HSplitView {
-            ResizableView(width: $viewModel.fileListWidth, dividerLocation: .trailing) {
-                FileListView(viewModel: viewModel.fileListViewModel)
-            }
-//            .frame(minWidth: 300)
-//            .frame(width: viewModel.fileListWidth)
+        VStack(spacing: 0) {
+            TopBarView(viewModel: viewModel.topBarViewModel)
             
-            ResizableView() {
-                ChangesView(viewModel: viewModel.changesViewModel)
+            HSplitView {
+                ResizableView(width: $viewModel.fileListWidth, dividerLocation: .trailing) {
+                    FileListView(viewModel: viewModel.fileListViewModel)
+                }
+                //            .frame(minWidth: 300)
+                //            .frame(width: viewModel.fileListWidth)
+                
+                ResizableView() {
+                    ChangesView(viewModel: viewModel.changesViewModel)
+                }
+                //            .frame(minWidth: 300)
             }
-//            .frame(minWidth: 300)
         }
     }
 }

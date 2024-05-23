@@ -11,17 +11,22 @@ import Combine
 class GitService {
     // MARK: - Public properties -
     
-    public var changedFiles: AnyPublisher<[File], Never> {
+    var currentBranch: AnyPublisher<String, Never> {
+        currentBranchSubject.eraseToAnyPublisher()
+    }
+    
+    var changedFiles: AnyPublisher<[File], Never> {
         changedFilesSubject.eraseToAnyPublisher()
     }
     
-    public var commitsComparedToUpstreamMessage: AnyPublisher<String, Never> {
+    var commitsComparedToUpstreamMessage: AnyPublisher<String, Never> {
         commitsComparedToUpstreamMessageSubject.eraseToAnyPublisher()
     }
     
     // MARK: - Private properties -
     
     private let shellService: ShellService
+    private let currentBranchSubject: PassthroughSubject<String, Never> = .init()
     private let changedFilesSubject: CurrentValueSubject<[File], Never> = .init([])
     private let commitsComparedToUpstreamMessageSubject: PassthroughSubject<String, Never> = .init()
     
@@ -73,7 +78,7 @@ extension GitService {
 private extension GitService {
     func updateNumberOfCommitsComparedToUpstream() {
         let output = shellService.execute(GitCommands.status.rawValue)
-        commitsComparedToUpstreamMessageSubject.send(parseGitStatusOutput(output))
+        parseGitStatusOutput(output)
     }
 }
 
@@ -118,8 +123,10 @@ private extension GitService {
     // On branch main
     // Your branch is ahead of 'origin/main' by 1 commit.
     // ... (Not relevant, first two lines are relevant)
-    func parseGitStatusOutput(_ output: String) -> String {
-        String(output.split(separator: "\n")[1])
+    func parseGitStatusOutput(_ output: String) {
+        let outputPerLine = output.split(separator: "\n")
+        currentBranchSubject.send(String(outputPerLine[0].split(separator: " ")[2]))
+        commitsComparedToUpstreamMessageSubject.send(String(outputPerLine[1]))
     }
 }
 

@@ -32,6 +32,9 @@
 		D0450CCA2AF3D68900927A86 /* ChangedFileListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0450CC92AF3D68900927A86 /* ChangedFileListItemView.swift */; };
 		D0450CCC2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0450CCB2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift */; };
 		D0450CCE2AF539E400927A86 /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0450CCD2AF539E400927A86 /* Change.swift */; };
+		D0F9D0822BFFB3A700A18BE4 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0812BFFB3A700A18BE4 /* TopBarView.swift */; };
+		D0F9D0842BFFB3C100A18BE4 /* TopBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0832BFFB3C100A18BE4 /* TopBarViewModel.swift */; };
+		D0F9D0872BFFCEC400A18BE4 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */; };
 		DA8E35EA77562C33F2FDDECA /* Pods_GitCat_GitCatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD796F51C3E23945D15A677D /* Pods_GitCat_GitCatUITests.framework */; };
 		E4A4C100AB8629E1A9600C2E /* Pods_GitCatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF10FD98243EE860794946C5 /* Pods_GitCatTests.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +91,9 @@
 		D0450CC92AF3D68900927A86 /* ChangedFileListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFileListItemView.swift; sourceTree = "<group>"; };
 		D0450CCB2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFileListItemViewModel.swift; sourceTree = "<group>"; };
 		D0450CCD2AF539E400927A86 /* Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
+		D0F9D0812BFFB3A700A18BE4 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
+		D0F9D0832BFFB3C100A18BE4 /* TopBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarViewModel.swift; sourceTree = "<group>"; };
+		D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		F6547F92E8CCE7082977FEE3 /* Pods-GitCat-GitCatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat-GitCatUITests.debug.xcconfig"; path = "Target Support Files/Pods-GitCat-GitCatUITests/Pods-GitCat-GitCatUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FD796F51C3E23945D15A677D /* Pods_GitCat_GitCatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCat_GitCatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF10FD98243EE860794946C5 /* Pods_GitCatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +180,7 @@
 		D01888132AC4593800CB874D /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				D0F9D0802BFFB39300A18BE4 /* TopBar */,
 				D018881A2AC45A3400CB874D /* Changes */,
 				D01888172AC459B300CB874D /* FileList */,
 				D01888152AC459AA00CB874D /* MainView.swift */,
@@ -293,6 +300,7 @@
 		D0450CC42AF2EEE800927A86 /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				D0F9D0852BFFCEB400A18BE4 /* Icons */,
 				D017CE0A2BE77C0700040BD6 /* Colors */,
 				D0450CC52AF2EEF000927A86 /* ResizableView */,
 			);
@@ -314,6 +322,23 @@
 				D0450CCB2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift */,
 			);
 			path = ChangedFileListItem;
+			sourceTree = "<group>";
+		};
+		D0F9D0802BFFB39300A18BE4 /* TopBar */ = {
+			isa = PBXGroup;
+			children = (
+				D0F9D0812BFFB3A700A18BE4 /* TopBarView.swift */,
+				D0F9D0832BFFB3C100A18BE4 /* TopBarViewModel.swift */,
+			);
+			path = TopBar;
+			sourceTree = "<group>";
+		};
+		D0F9D0852BFFCEB400A18BE4 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,15 +550,18 @@
 				D01888202AC4607200CB874D /* ChangesViewModel.swift in Sources */,
 				D0450CCE2AF539E400927A86 /* Change.swift in Sources */,
 				D0450CC72AF2EEFC00927A86 /* ResizableView.swift in Sources */,
+				D0F9D0842BFFB3C100A18BE4 /* TopBarViewModel.swift in Sources */,
 				D01888162AC459AA00CB874D /* MainView.swift in Sources */,
 				D0061AF72AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift in Sources */,
 				D0450CCA2AF3D68900927A86 /* ChangedFileListItemView.swift in Sources */,
+				D0F9D0822BFFB3A700A18BE4 /* TopBarView.swift in Sources */,
 				D0061AF92AC4BC190051DEA0 /* GitService.swift in Sources */,
 				D017CE0C2BE77C1600040BD6 /* AppColor.swift in Sources */,
 				D0061AFC2AC588460051DEA0 /* File.swift in Sources */,
 				D01888252AC469BE00CB874D /* FileService.swift in Sources */,
 				D02109E62AC835AF00A64C4F /* GitCommands.swift in Sources */,
 				D0061AF52AC4BB980051DEA0 /* ChangedFilesListView.swift in Sources */,
+				D0F9D0872BFFCEC400A18BE4 /* AppIcon.swift in Sources */,
 				D01F56102AC455B700AF4342 /* GitCatApp.swift in Sources */,
 				D018881C2AC45AD000CB874D /* ChangesView.swift in Sources */,
 				D0450CCC2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift in Sources */,

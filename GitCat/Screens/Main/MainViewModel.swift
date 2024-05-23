@@ -20,13 +20,16 @@ class MainViewModel: ObservableObject {
     
     let changesViewModel: ChangesViewModel
     let fileListViewModel: FileListViewModel
+    let topBarViewModel: TopBarViewModel
     
     // MARK: - Initializer -
     
     init(changesViewModel: ChangesViewModel,
-         fileListViewModel: FileListViewModel) {
+         fileListViewModel: FileListViewModel,
+         topBarViewModel: TopBarViewModel) {
         self.changesViewModel = changesViewModel
         self.fileListViewModel = fileListViewModel
+        self.topBarViewModel = topBarViewModel
         
         subscribeToSelectedFile()
         subscribeToFileListWidth()
