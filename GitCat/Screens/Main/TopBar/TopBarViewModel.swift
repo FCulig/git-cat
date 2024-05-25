@@ -12,6 +12,7 @@ final class TopBarViewModel: ObservableObject {
     // MARK: - Public properties -
     
     @Published var currentBranch: String = ""
+    @Published var branches: [String] = []
     
     // MARK: - Private properties -
     
@@ -27,12 +28,24 @@ final class TopBarViewModel: ObservableObject {
     }
 }
 
+// MARK: - Public methods -
+
+extension TopBarViewModel {
+    func checkoutBranch(_ branchName: String) {
+        print("Should checkout \(branchName)")
+    }
+}
+
 // MARK: - Private methods -
 
 private extension TopBarViewModel {
     func subscribeChanges() {
         gitService.currentBranch
             .sink { [weak self] in self?.currentBranch = $0 }
+            .store(in: &cancellables)
+        
+        gitService.branches
+            .sink { [weak self] in self?.branches = $0 }
             .store(in: &cancellables)
     }
 }

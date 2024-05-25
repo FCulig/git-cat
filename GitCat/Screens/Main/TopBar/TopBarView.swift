@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: - TopBarView -
 struct TopBarView: View {
     @ObservedObject private var viewModel: TopBarViewModel
     
@@ -14,20 +15,58 @@ struct TopBarView: View {
         self.viewModel = viewModel
     }
     
+    // MARK: - Body -
+    
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 10){
             AppIcon.branch.image
                 .resizable()
                 .foregroundStyle(.white)
                 .scaledToFit()
                 .frame(width: 30)
             
-            Text(viewModel.currentBranch)
-                .font(.title2)
-                .fontWeight(.bold)
+            menu
             
             Spacer()
         }
-        .padding(12)
+        .padding(15)
+    }
+}
+
+// MARK: - Menu -
+
+private extension TopBarView {
+    var menu: some View {
+        Menu {
+            menuItems
+        } label: {
+            menuLabel
+        }
+        .menuStyle(BorderlessButtonMenuStyle())
+        .frame(width: 100)
+    }
+    
+    var menuItems: some View {
+        ForEach(viewModel.branches, id: \.self) { branchName in
+            Button {
+                viewModel.checkoutBranch(branchName)
+            } label: {
+                Label {
+                    Text(branchName)
+                } icon: {
+                    if branchName == viewModel.currentBranch {
+                        Image(systemName: "checkmark")
+                    }
+                }
+                .labelStyle(.titleAndIcon)
+            }
+        }
+    }
+    
+    var menuLabel: some View {
+        Text(viewModel.currentBranch)
+            .font(.title2)
+            .fontWeight(.bold)
+            .padding(4)
     }
 }

@@ -15,6 +15,10 @@ class GitService {
         currentBranchSubject.eraseToAnyPublisher()
     }
     
+    var branches: AnyPublisher<[String], Never> {
+        branchesSubject.eraseToAnyPublisher()
+    }
+    
     var changedFiles: AnyPublisher<[File], Never> {
         changedFilesSubject.eraseToAnyPublisher()
     }
@@ -27,6 +31,7 @@ class GitService {
     
     private let shellService: ShellService
     private let currentBranchSubject: PassthroughSubject<String, Never> = .init()
+    private let branchesSubject: PassthroughSubject<[String], Never> = .init()
     private let changedFilesSubject: CurrentValueSubject<[File], Never> = .init([])
     private let commitsComparedToUpstreamMessageSubject: PassthroughSubject<String, Never> = .init()
     
@@ -44,10 +49,11 @@ extension GitService {
         let output = shellService.execute("\(GitCommands.status.rawValue) --short")
         changedFilesSubject.send(parseGitStatusShortOutput(output))
         updateNumberOfCommitsComparedToUpstream()
+        getListOfBranches()
     }
     
     func getChangesFor(file: File) -> String {
-        // TODO: Factory for this making of commands?
+        // TODO: Factory for this making of commands or something else?
         let output = shellService.execute("\(GitCommands.diff.rawValue) \(file.isStaged ? "--staged" : "") \(file.filePath)")
         return parseGitDiffOutput(output)
     }
@@ -79,6 +85,13 @@ private extension GitService {
     func updateNumberOfCommitsComparedToUpstream() {
         let output = shellService.execute(GitCommands.status.rawValue)
         parseGitStatusOutput(output)
+    }
+    
+    func getListOfBranches() {
+        let output = shellService.execute(GitCommands.listOfBranches.rawValue)
+        let outputPerLine = output.split(separator: "\n")
+        let branches = outputPerLine.map { String($0.split(separator: "'")[1] ) }
+        branchesSubject.send(branches)
     }
 }
 
