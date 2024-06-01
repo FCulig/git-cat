@@ -12,11 +12,11 @@ struct GitCatApp: App {
     var body: some Scene {
         let shellService = ShellService()
         let gitService = GitService(shellService: shellService)
+        let fileListViewModel = FileListViewModel(changedFilesListViewModel: ChangedFilesListViewModel(gitService: gitService),
+                                                  fileService: FileService())
         
         return WindowGroup {
-            MainView(viewModel: MainViewModel(changesViewModel: ChangesViewModel(gitService: gitService),
-                                              fileListViewModel: FileListViewModel(changedFilesListViewModel: ChangedFilesListViewModel(gitService: gitService),
-                                                                                   fileService: FileService()), 
+            MainView(viewModel: MainViewModel(mainMenuViewModel: MainMenuViewModel(fileListViewModel: fileListViewModel),
                                               topBarViewModel: TopBarViewModel(gitService: gitService)))
             // Refresh file status each time focus gets switched to the app
             .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in

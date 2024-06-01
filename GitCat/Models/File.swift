@@ -5,6 +5,8 @@
 //  Created by Filip Čulig on 28.09.2023..
 //
 
+import Foundation
+
 // MARK: - FileStatus -
 enum FileStatus: String {
     case new = "A"
@@ -30,7 +32,8 @@ enum FileStatus: String {
 }
 
 // MARK: - File -
-struct File: Hashable {
+struct File: Hashable, Identifiable {
+    let id = UUID()
     let filePath: String
     /// Status of the file in the stageing area.
     let indexStatus: FileStatus

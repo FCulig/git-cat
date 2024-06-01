@@ -51,10 +51,12 @@ private extension ChangedFilesListView {
     var changedFiles: some View {
         ScrollView {
             ForEach(viewModel.changedFiles, id: \.self) { changedFile in
-                ChangedFileListItemView(viewModel: changedFile)
-                    .onTapGesture {
-                        viewModel.select(itemViewModel: changedFile)
-                    }
+                NavigationLink {
+                    ChangesView(viewModel: .init(changedFile: changedFile, gitService: viewModel.gitService))
+                } label: {
+                    ChangedFileListItemView(viewModel: .init(file: changedFile))
+                }
+                .buttonStyle(PlainButtonStyle())
             }
         }
     }

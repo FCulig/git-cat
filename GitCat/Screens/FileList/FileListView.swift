@@ -50,7 +50,3 @@ private extension FileListView {
         ChangedFilesListView(viewModel: viewModel.changedFilesListViewModel)
     }
 }
-
-//#Preview {
-//    FileListView()
-//}

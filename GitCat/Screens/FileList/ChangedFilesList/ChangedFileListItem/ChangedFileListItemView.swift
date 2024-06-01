@@ -24,10 +24,5 @@ struct ChangedFileListItemView: View {
             Text(viewModel.file.filePath)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .background(viewModel.isSelected ? .gray : .clear)
     }
 }
-
-//#Preview {
-//    ChangedFileListItemView()
-//}

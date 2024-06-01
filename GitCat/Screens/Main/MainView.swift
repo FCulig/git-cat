@@ -20,27 +20,12 @@ struct MainView: View {
     // MARK: - Body -
     
     var body: some View {
-        VStack(spacing: 0) {
-            TopBarView(viewModel: viewModel.topBarViewModel)
-            
-            HSplitView {
-                ResizableView(width: $viewModel.fileListWidth, dividerLocation: .trailing) {
-                    FileListView(viewModel: viewModel.fileListViewModel)
-                }
-                //            .frame(minWidth: 300)
-                //            .frame(width: viewModel.fileListWidth)
-                
-                ResizableView() {
-                    ChangesView(viewModel: viewModel.changesViewModel)
-                }
-                //            .frame(minWidth: 300)
-            }
+        NavigationSplitView {
+            MainMenuView(viewModel: viewModel.mainMenuViewModel)
+        } content: {
+            Text("Please select main menu item")
+        } detail: {
+            Text("Please select file from changed file list")
         }
     }
 }
-
-// MARK: - Preview -
-
-//#Preview {
-//    MainView()
-//}

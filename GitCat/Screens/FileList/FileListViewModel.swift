@@ -70,7 +70,7 @@ private extension FileListViewModel {
     
     func subscribeFileSelection() {
         changedFilesListViewModel.$selectedFile
-            .assign(to: \.selectedFile, on: self)
+            .sink { [weak self] in self?.selectedFile = $0 }
             .store(in: &cancellables)
     }
 }

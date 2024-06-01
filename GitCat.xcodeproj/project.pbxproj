@@ -30,8 +30,11 @@
 		D02109E62AC835AF00A64C4F /* GitCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02109E52AC835AF00A64C4F /* GitCommands.swift */; };
 		D0450CC72AF2EEFC00927A86 /* ResizableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0450CC62AF2EEFC00927A86 /* ResizableView.swift */; };
 		D0450CCA2AF3D68900927A86 /* ChangedFileListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0450CC92AF3D68900927A86 /* ChangedFileListItemView.swift */; };
-		D0450CCC2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0450CCB2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift */; };
 		D0450CCE2AF539E400927A86 /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0450CCD2AF539E400927A86 /* Change.swift */; };
+		D076E7632C0206F4006301EA /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D076E7622C0206F4006301EA /* MainMenuView.swift */; };
+		D076E7652C020770006301EA /* MainMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D076E7642C020770006301EA /* MainMenuItem.swift */; };
+		D076E7672C020B29006301EA /* MainMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D076E7662C020B29006301EA /* MainMenuViewModel.swift */; };
+		D0EB5CC52C032E3A006341D2 /* ChangedFileListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EB5CC42C032E3A006341D2 /* ChangedFileListItemViewModel.swift */; };
 		D0F9D0822BFFB3A700A18BE4 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0812BFFB3A700A18BE4 /* TopBarView.swift */; };
 		D0F9D0842BFFB3C100A18BE4 /* TopBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0832BFFB3C100A18BE4 /* TopBarViewModel.swift */; };
 		D0F9D0872BFFCEC400A18BE4 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */; };
@@ -89,8 +92,11 @@
 		D02109E52AC835AF00A64C4F /* GitCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitCommands.swift; sourceTree = "<group>"; };
 		D0450CC62AF2EEFC00927A86 /* ResizableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableView.swift; sourceTree = "<group>"; };
 		D0450CC92AF3D68900927A86 /* ChangedFileListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFileListItemView.swift; sourceTree = "<group>"; };
-		D0450CCB2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFileListItemViewModel.swift; sourceTree = "<group>"; };
 		D0450CCD2AF539E400927A86 /* Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
+		D076E7622C0206F4006301EA /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		D076E7642C020770006301EA /* MainMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuItem.swift; sourceTree = "<group>"; };
+		D076E7662C020B29006301EA /* MainMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewModel.swift; sourceTree = "<group>"; };
+		D0EB5CC42C032E3A006341D2 /* ChangedFileListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFileListItemViewModel.swift; sourceTree = "<group>"; };
 		D0F9D0812BFFB3A700A18BE4 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
 		D0F9D0832BFFB3C100A18BE4 /* TopBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarViewModel.swift; sourceTree = "<group>"; };
 		D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
@@ -182,7 +188,6 @@
 			children = (
 				D0F9D0802BFFB39300A18BE4 /* TopBar */,
 				D018881A2AC45A3400CB874D /* Changes */,
-				D01888172AC459B300CB874D /* FileList */,
 				D01888152AC459AA00CB874D /* MainView.swift */,
 				D018881D2AC45C1600CB874D /* MainViewModel.swift */,
 			);
@@ -192,6 +197,8 @@
 		D01888142AC4599400CB874D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				D01888172AC459B300CB874D /* FileList */,
+				D076E7612C0206E2006301EA /* MainMenu */,
 				D01888132AC4593800CB874D /* Main */,
 			);
 			path = Screens;
@@ -319,9 +326,19 @@
 			isa = PBXGroup;
 			children = (
 				D0450CC92AF3D68900927A86 /* ChangedFileListItemView.swift */,
-				D0450CCB2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift */,
+				D0EB5CC42C032E3A006341D2 /* ChangedFileListItemViewModel.swift */,
 			);
 			path = ChangedFileListItem;
+			sourceTree = "<group>";
+		};
+		D076E7612C0206E2006301EA /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				D076E7622C0206F4006301EA /* MainMenuView.swift */,
+				D076E7642C020770006301EA /* MainMenuItem.swift */,
+				D076E7662C020B29006301EA /* MainMenuViewModel.swift */,
+			);
+			path = MainMenu;
 			sourceTree = "<group>";
 		};
 		D0F9D0802BFFB39300A18BE4 /* TopBar */ = {
@@ -544,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D02109E32AC76B9200A64C4F /* ShellService.swift in Sources */,
+				D076E7632C0206F4006301EA /* MainMenuView.swift in Sources */,
 				D018881E2AC45C1600CB874D /* MainViewModel.swift in Sources */,
 				D01888222AC462AD00CB874D /* FileListViewModel.swift in Sources */,
 				D01888192AC459CF00CB874D /* FileListView.swift in Sources */,
@@ -559,12 +577,14 @@
 				D017CE0C2BE77C1600040BD6 /* AppColor.swift in Sources */,
 				D0061AFC2AC588460051DEA0 /* File.swift in Sources */,
 				D01888252AC469BE00CB874D /* FileService.swift in Sources */,
+				D076E7672C020B29006301EA /* MainMenuViewModel.swift in Sources */,
+				D0EB5CC52C032E3A006341D2 /* ChangedFileListItemViewModel.swift in Sources */,
 				D02109E62AC835AF00A64C4F /* GitCommands.swift in Sources */,
+				D076E7652C020770006301EA /* MainMenuItem.swift in Sources */,
 				D0061AF52AC4BB980051DEA0 /* ChangedFilesListView.swift in Sources */,
 				D0F9D0872BFFCEC400A18BE4 /* AppIcon.swift in Sources */,
 				D01F56102AC455B700AF4342 /* GitCatApp.swift in Sources */,
 				D018881C2AC45AD000CB874D /* ChangesView.swift in Sources */,
-				D0450CCC2AF3D69B00927A86 /* ChangedFileListItemViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +760,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.filip.culig.GitCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -769,6 +790,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.filip.culig.GitCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";

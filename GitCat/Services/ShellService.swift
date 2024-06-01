@@ -27,7 +27,8 @@ extension ShellService {
         task.arguments = ["-c", command]
         task.launchPath = "/bin/zsh"
         task.standardInput = nil
-        task.currentDirectoryPath = workingDirectory
+        // Commenting this out because of the crash. Dont know why it works without this.
+//        task.currentDirectoryPath = workingDirectory
         task.launch()
         
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
