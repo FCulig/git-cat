@@ -9,14 +9,15 @@ import SwiftUI
 
 struct MainMenuView: View {
     @ObservedObject private var viewModel: MainMenuViewModel
+    @State private var selectedItem: MainMenuItem? = .workingDirectory
     
     init(viewModel: MainMenuViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        List {
-            NavigationLink {
+        List(selection: $selectedItem) {
+            NavigationLink(tag: MainMenuItem.workingDirectory, selection: $selectedItem) {
                 FileListView(viewModel: viewModel.fileListViewModel)
             } label: {
                 Text(MainMenuItem.workingDirectory.title)

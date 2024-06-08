@@ -46,6 +46,8 @@ private extension ChangedFilesListView {
             changedFiles
             commitSection
         }
+        .padding(.vertical, 20)
+        .padding(.horizontal, 8)
     }
     
     var changedFiles: some View {
