@@ -33,6 +33,10 @@ class ChangedFilesListViewModel: ObservableObject {
 // MARK: - Public methods -
 
 extension ChangedFilesListViewModel {
+    func onAppear() {
+        selectedFile = changedFiles.first
+    }
+    
     func commitChanges(shouldPushChanges: Bool) {
         gitService.commit(message: commitMessage)
         commitMessage = ""

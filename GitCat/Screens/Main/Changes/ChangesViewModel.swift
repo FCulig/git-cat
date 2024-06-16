@@ -11,7 +11,7 @@ import Combine
 class ChangesViewModel: ObservableObject {
     // MARK: - Private properties -
     
-    private let changedFile: File
+    private let changedFile: File?
     let gitService: GitService
     
     // MARK: - Public properties -
@@ -21,7 +21,7 @@ class ChangesViewModel: ObservableObject {
     
     // MARK: - Initializer -
     
-    init(changedFile: File, gitService: GitService) {
+    init(changedFile: File?, gitService: GitService) {
         self.changedFile = changedFile
         self.gitService = gitService
         
@@ -33,12 +33,16 @@ class ChangesViewModel: ObservableObject {
 
 extension ChangesViewModel {
     func stageFile() {
+        guard let changedFile else { return }
+        
         gitService.stage(file: changedFile)
         updateFileChanges(for: changedFile)
         isFileStaged = true
     }
     
     func unstageFile() {
+        guard let changedFile else { return }
+        
         gitService.unstage(file: changedFile)
         updateFileChanges(for: changedFile)
         isFileStaged = false
@@ -48,7 +52,9 @@ extension ChangesViewModel {
 // MARK: - Private methods -
 
 private extension ChangesViewModel {
-    func updateFileChanges(for file: File) {
+    func updateFileChanges(for file: File?) {
+        guard let file else { return }
+        
         var changesStringByLine = gitService.getChangesFor(file: file).split(separator: "\n")
         let firstChangeIndex = changesStringByLine.firstIndex(where: { $0.starts(with: "@@") })
         

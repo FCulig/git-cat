@@ -18,12 +18,17 @@ struct GitCatApp: App {
         return WindowGroup {
             MainView(viewModel: MainViewModel(mainMenuViewModel: MainMenuViewModel(fileListViewModel: fileListViewModel),
                                               topBarViewModel: TopBarViewModel(gitService: gitService)))
-            // Refresh file status each time focus gets switched to the app
-            .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            .onAppear {
                 DispatchQueue.main.async {
                     gitService.refreshChangedFiles()
                 }
             }
+            // Refresh file status each time focus gets switched to the app
+//            .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+//                DispatchQueue.main.async {
+//                    gitService.refreshChangedFiles()
+//                }
+//            }
         }
     }
 }

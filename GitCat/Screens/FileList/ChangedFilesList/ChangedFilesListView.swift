@@ -53,13 +53,16 @@ private extension ChangedFilesListView {
     var changedFiles: some View {
         ScrollView {
             ForEach(viewModel.changedFiles, id: \.self) { changedFile in
-                NavigationLink {
-                    ChangesView(viewModel: .init(changedFile: changedFile, gitService: viewModel.gitService))
+                NavigationLink(tag: changedFile, selection: $viewModel.selectedFile) {
+                    ChangesView(viewModel: .init(changedFile: viewModel.selectedFile, gitService: viewModel.gitService))
                 } label: {
                     ChangedFileListItemView(viewModel: .init(file: changedFile))
+                        .background(changedFile == viewModel.selectedFile ? Color.gray.opacity(0.4) : Color.clear)
+                        .clipShape(RoundedRectangle(cornerRadius: 3))
                 }
                 .buttonStyle(PlainButtonStyle())
             }
+            .onAppear { viewModel.onAppear() }
         }
     }
 }
