@@ -54,7 +54,11 @@ private extension ChangedFilesListView {
         ScrollView {
             ForEach(viewModel.changedFiles, id: \.self) { changedFile in
                 NavigationLink(tag: changedFile, selection: $viewModel.selectedFile) {
-                    ChangesView(viewModel: .init(changedFile: viewModel.selectedFile, gitService: viewModel.gitService))
+                    if let selectedFile = viewModel.selectedFile {
+                        ChangesView(viewModel: .init(changedFile: selectedFile, gitService: viewModel.gitService))
+                    } else {
+                        EmptyView()
+                    }
                 } label: {
                     ChangedFileListItemView(viewModel: .init(file: changedFile))
                         .background(changedFile == viewModel.selectedFile ? Color.gray.opacity(0.4) : Color.clear)
