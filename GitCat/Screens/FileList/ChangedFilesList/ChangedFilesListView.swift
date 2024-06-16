@@ -53,26 +53,26 @@ private extension ChangedFilesListView {
     var changedFiles: some View {
         ScrollView {
                 ForEach(viewModel.changedFiles, id: \.self) { changedFile in
-                    NavigationLink(tag: changedFile, selection: $viewModel.selectedFile) {
-                        
-                        if viewModel.changedFiles.isEmpty {
-                            Text("No more files")
-                        } else {
-                            //                    if let selectedFile = $viewModel.selectedFile {
-                            Text(viewModel.selectedFile?.filePath ?? "No file")
-                        }
-                        //                        ChangesView(viewModel: .init(changedFile: selectedFile, gitService: viewModel.gitService))
-                        //                    } else {
-                        //                        EmptyView()
-                        //                    }
-                    } label: {
+                    NavigationLink(value: changedFile) {
                         ChangedFileListItemView(viewModel: .init(file: changedFile))
-                            .background(changedFile == viewModel.selectedFile ? Color.gray.opacity(0.4) : Color.clear)
-                            .clipShape(RoundedRectangle(cornerRadius: 3))
+//                            .background(changedFile == viewModel.selectedFile ? Color.gray.opacity(0.4) : Color.clear)
+//                            .clipShape(RoundedRectangle(cornerRadius: 3))
                     }
-                    .buttonStyle(PlainButtonStyle())
+//                    .buttonStyle(PlainButtonStyle())
+                    
+//                    NavigationLink(tag: changedFile, selection: $viewModel.selectedFile) {
+//                        ChangesView(viewModel: .init(changedFile: selectedFile, gitService: viewModel.gitService))
+//                    } label: {
+//                        ChangedFileListItemView(viewModel: .init(file: changedFile))
+//                            .background(changedFile == viewModel.selectedFile ? Color.gray.opacity(0.4) : Color.clear)
+//                            .clipShape(RoundedRectangle(cornerRadius: 3))
+//                    }
+//                    .buttonStyle(PlainButtonStyle())
                 }
-                .onAppear { viewModel.onAppear() }
+//                .onAppear { viewModel.onAppear() }
+        }
+        .navigationDestination(for: File.self) { changedFile in
+            ChangesView(viewModel: .init(changedFile: changedFile, gitService: viewModel.gitService))
         }
     }
 }
