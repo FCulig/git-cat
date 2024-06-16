@@ -21,11 +21,11 @@ struct ChangedFilesListView: View {
     // MARK: - Body -
     
     var body: some View {
-        if viewModel.changedFiles.isEmpty {
-            noChangesMessage
-        } else {
+//        if viewModel.changedFiles.isEmpty {
+//            noChangesMessage
+//        } else {
             changedFilesList
-        }
+//        }
     }
 }
 
@@ -52,22 +52,26 @@ private extension ChangedFilesListView {
     
     var changedFiles: some View {
         ScrollView {
-            ForEach(viewModel.changedFiles, id: \.self) { changedFile in
-                NavigationLink(tag: changedFile, selection: $viewModel.selectedFile) {
-//                    if let selectedFile = $viewModel.selectedFile {
+            if viewModel.changedFiles.isEmpty {
+                Text("No more files")
+            } else {
+                ForEach(viewModel.changedFiles, id: \.self) { changedFile in
+                    NavigationLink(tag: changedFile, selection: $viewModel.selectedFile) {
+                        //                    if let selectedFile = $viewModel.selectedFile {
                         Text(viewModel.selectedFile?.filePath ?? "No file")
-//                        ChangesView(viewModel: .init(changedFile: selectedFile, gitService: viewModel.gitService))
-//                    } else {
-//                        EmptyView()
-//                    }
-                } label: {
-                    ChangedFileListItemView(viewModel: .init(file: changedFile))
-                        .background(changedFile == viewModel.selectedFile ? Color.gray.opacity(0.4) : Color.clear)
-                        .clipShape(RoundedRectangle(cornerRadius: 3))
+                        //                        ChangesView(viewModel: .init(changedFile: selectedFile, gitService: viewModel.gitService))
+                        //                    } else {
+                        //                        EmptyView()
+                        //                    }
+                    } label: {
+                        ChangedFileListItemView(viewModel: .init(file: changedFile))
+                            .background(changedFile == viewModel.selectedFile ? Color.gray.opacity(0.4) : Color.clear)
+                            .clipShape(RoundedRectangle(cornerRadius: 3))
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .buttonStyle(PlainButtonStyle())
+                .onAppear { viewModel.onAppear() }
             }
-            .onAppear { viewModel.onAppear() }
         }
     }
 }
