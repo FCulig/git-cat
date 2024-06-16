@@ -52,13 +52,15 @@ private extension ChangedFilesListView {
     
     var changedFiles: some View {
         ScrollView {
-            if viewModel.changedFiles.isEmpty {
-                Text("No more files")
-            } else {
                 ForEach(viewModel.changedFiles, id: \.self) { changedFile in
                     NavigationLink(tag: changedFile, selection: $viewModel.selectedFile) {
-                        //                    if let selectedFile = $viewModel.selectedFile {
-                        Text(viewModel.selectedFile?.filePath ?? "No file")
+                        
+                        if viewModel.changedFiles.isEmpty {
+                            Text("No more files")
+                        } else {
+                            //                    if let selectedFile = $viewModel.selectedFile {
+                            Text(viewModel.selectedFile?.filePath ?? "No file")
+                        }
                         //                        ChangesView(viewModel: .init(changedFile: selectedFile, gitService: viewModel.gitService))
                         //                    } else {
                         //                        EmptyView()
@@ -71,7 +73,6 @@ private extension ChangedFilesListView {
                     .buttonStyle(PlainButtonStyle())
                 }
                 .onAppear { viewModel.onAppear() }
-            }
         }
     }
 }
