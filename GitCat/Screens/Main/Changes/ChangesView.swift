@@ -44,6 +44,7 @@ private extension ChangesView {
                 }
             }
         }
+        .padding(20)
     }
 }
 

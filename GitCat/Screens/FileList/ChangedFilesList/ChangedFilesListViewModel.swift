@@ -40,6 +40,7 @@ extension ChangedFilesListViewModel {
     func commitChanges(shouldPushChanges: Bool) {
         gitService.commit(message: commitMessage)
         commitMessage = ""
+        selectedFile = nil
         
         if shouldPushChanges {
             gitService.push()
