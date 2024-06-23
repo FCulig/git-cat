@@ -58,9 +58,7 @@ private extension ChangedFilesListViewModel {
         
         gitService.commitsComparedToUpstream
             .removeDuplicates()
-            .map { [weak self] (numberOfCommits) -> String? in
-                guard let self else { return nil }
-                
+            .map { (numberOfCommits) -> String? in
                 if numberOfCommits == 0 {
                     return nil
                 } else if numberOfCommits > 0 {
