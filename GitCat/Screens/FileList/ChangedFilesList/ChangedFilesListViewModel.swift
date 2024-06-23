@@ -15,7 +15,7 @@ class ChangedFilesListViewModel: ObservableObject {
     
     // MARK: - Public properties -
     
-    @Published var upstreamCommitDifferece = ""
+    @Published var upstreamCommitDiffereceMessage: String?
     @Published var commitMessage = ""
     @Published var changedFiles: [File] = []
     @Published var selectedFile: File?
@@ -56,9 +56,20 @@ private extension ChangedFilesListViewModel {
             .sink { [weak self] in self?.changedFiles = $0 }
             .store(in: &cancellables)
         
-        gitService.commitsComparedToUpstreamMessage
-            .map { $0.contains("up to date") ? "" : $0 }
-            .sink { [weak self] in self?.upstreamCommitDifferece = $0 }
+        gitService.commitsComparedToUpstream
+            .removeDuplicates()
+            .map { [weak self] (numberOfCommits) -> String? in
+                guard let self else { return nil }
+                
+                if numberOfCommits == 0 {
+                    return nil
+                } else if numberOfCommits > 0 {
+                    return "Your branch is \(numberOfCommits) commit ahead of the upstream."
+                } else {
+                    return "Your branch is \(numberOfCommits) commit behind of the upstream."
+                }
+            }
+            .sink { [weak self] in self?.upstreamCommitDiffereceMessage = $0 }
             .store(in: &cancellables)
     }
 }

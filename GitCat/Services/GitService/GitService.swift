@@ -23,8 +23,8 @@ class GitService {
         changedFilesSubject.eraseToAnyPublisher()
     }
     
-    var commitsComparedToUpstreamMessage: AnyPublisher<String, Never> {
-        commitsComparedToUpstreamMessageSubject.eraseToAnyPublisher()
+    var commitsComparedToUpstream: AnyPublisher<Int, Never> {
+        commitsComparedToUpstreamSubject.eraseToAnyPublisher()
     }
     
     // MARK: - Private properties -
@@ -33,7 +33,7 @@ class GitService {
     private let currentBranchSubject: PassthroughSubject<String, Never> = .init()
     private let branchesSubject: PassthroughSubject<[String], Never> = .init()
     private let changedFilesSubject: CurrentValueSubject<[File], Never> = .init([])
-    private let commitsComparedToUpstreamMessageSubject: PassthroughSubject<String, Never> = .init()
+    private let commitsComparedToUpstreamSubject: PassthroughSubject<Int, Never> = .init()
     
     // MARK: - Initializer -
     
@@ -83,8 +83,17 @@ extension GitService {
 
 private extension GitService {
     func updateNumberOfCommitsComparedToUpstream() {
-        let output = shellService.execute(GitCommands.status.rawValue)
-        parseGitStatusOutput(output)
+        let outputComparedFromOrigin = shellService.execute("\(GitCommands.revList.rawValue) HEAD..origin/main")
+        let numberOfCommitComparedFromOrigin = outputComparedFromOrigin.split(separator: "\n").count
+        
+        guard numberOfCommitComparedFromOrigin == 0 else {
+            commitsComparedToUpstreamSubject.send(-numberOfCommitComparedFromOrigin)
+            return
+        }
+        
+        let outputComparedToOrigin = shellService.execute("\(GitCommands.revList.rawValue) origin/main..HEAD")
+        let numberOfCommitsComparedToOrigin = outputComparedToOrigin.split(separator: "\n").count
+        commitsComparedToUpstreamSubject.send(numberOfCommitsComparedToOrigin)
     }
     
     func getListOfBranches() {
@@ -132,14 +141,8 @@ private extension GitService {
         return files
     }
     
-    // Example output:
-    // On branch main
-    // Your branch is ahead of 'origin/main' by 1 commit.
-    // ... (Not relevant, first two lines are relevant)
-    func parseGitStatusOutput(_ output: String) {
-        let outputPerLine = output.split(separator: "\n")
-        currentBranchSubject.send(String(outputPerLine[0].split(separator: " ")[2]))
-        commitsComparedToUpstreamMessageSubject.send(String(outputPerLine[1]))
+    func parseRevListOutput(_ output: String) {
+        
     }
 }
 

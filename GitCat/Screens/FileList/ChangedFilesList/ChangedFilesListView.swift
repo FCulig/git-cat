@@ -71,11 +71,11 @@ private extension ChangedFilesListView {
 
 private extension ChangedFilesListView {
     @ViewBuilder var comparedToUpstreamBanner: some View {
-        if !viewModel.upstreamCommitDifferece.isEmpty {
+        if let upstreamCommitDiffereceMessage = viewModel.upstreamCommitDiffereceMessage {
             HStack(spacing: 0) {
                 Spacer()
                 
-                Text(viewModel.upstreamCommitDifferece)
+                Text(upstreamCommitDiffereceMessage)
                     .padding(.trailing, 16)
                 
                 Button(action: viewModel.pushChanges) {

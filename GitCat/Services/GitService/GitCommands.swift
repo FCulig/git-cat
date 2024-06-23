@@ -12,6 +12,7 @@ enum GitCommands: String {
     case diff = "git diff" // TODO: Replace this with git add -p, https://stackoverflow.com/questions/1085162/commit-only-part-of-a-files-changes-in-git
     case listOfBranches = "git branch -r | grep -v '\\->' | sed \"s,\\x1B\\[[0-9;]*[a-zA-Z],,g\" | while read remote; do git branch --track \"${remote#origin/}\" \"$remote\"; done"
     case push = "git push origin main" // TODO: Ability to chose origin and branch to which to push
+    case revList = "git rev-list"
     case restore = "git restore --staged"
     case status = "git status"
 }
