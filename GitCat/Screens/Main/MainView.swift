@@ -38,7 +38,7 @@ private extension MainView {
     var toolbarItem: some ToolbarContent {
         ToolbarItem(placement: .navigation) {
             HStack(spacing: 3) {
-                Text("Repo name")
+                Text(viewModel.repoName)
                     .font(.title2.weight(.bold))
                 
                 DirectorySelectionView(viewModel: viewModel.directorySelectionViewModel) {
