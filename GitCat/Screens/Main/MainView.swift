@@ -27,5 +27,29 @@ struct MainView: View {
         } detail: {
             Text("Please select file from changed file list")
         }
+        .navigationTitle("")
+        .toolbar { toolbarItem }
+    }
+}
+
+// MARK: - Toolbar item
+
+private extension MainView {
+    var toolbarItem: some ToolbarContent {
+        ToolbarItem(placement: .navigation) {
+            HStack(spacing: 3) {
+                Text("Repo name")
+                    .font(.title2.weight(.bold))
+                
+                DirectorySelectionView(viewModel: viewModel.directorySelectionViewModel) {
+                    Image(systemName: "folder")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 15)
+                        .padding(.top, 3)
+                }
+            }
+            .padding(.leading, 10)
+        }
     }
 }

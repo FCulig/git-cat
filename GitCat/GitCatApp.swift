@@ -11,13 +11,17 @@ import SwiftUI
 struct GitCatApp: App {
     var body: some Scene {
         let shellService = ShellService()
+        let fileService = FileService()
         let gitService = GitService(shellService: shellService)
-        let fileListViewModel = FileListViewModel(changedFilesListViewModel: ChangedFilesListViewModel(gitService: gitService),
-                                                  fileService: FileService())
+        let directorySelectionViewModel = DirectorySelectionViewModel(fileService: fileService,
+                                                                      gitService: gitService)
+        let fileListViewModel = FileListViewModel(directorySelectionViewModel: directorySelectionViewModel,
+                                                  changedFilesListViewModel: ChangedFilesListViewModel(gitService: gitService))
         
         return WindowGroup {
             MainView(viewModel: MainViewModel(mainMenuViewModel: MainMenuViewModel(fileListViewModel: fileListViewModel),
-                                              topBarViewModel: TopBarViewModel(gitService: gitService)))
+                                              topBarViewModel: TopBarViewModel(gitService: gitService),
+                                             directorySelectionViewModel: directorySelectionViewModel))
             .onAppear {
                 DispatchQueue.main.async {
                     gitService.refreshChangedFiles()

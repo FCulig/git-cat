@@ -32,13 +32,8 @@ struct FileListView: View {
 
 private extension FileListView {
     var selectWorkspaceButton: some View {
-        Button("Select workspace") {
-            viewModel.showOpenPanel()
-        }
-        .alert(isPresented: $viewModel.isShowingInvalidWorkspaceAlert) {
-            Alert(title: Text("Invalid directory"),
-                  message: Text("Selected directory is not a git repository"),
-                  dismissButton: .default(Text("OK")))
+        DirectorySelectionView(viewModel: viewModel.directorySelectionViewModel) {
+            Text("Select workspace")
         }
     }
 }

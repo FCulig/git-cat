@@ -43,8 +43,8 @@ private extension ChangesView {
                     makeChangeChunk(for: changeChunk)
                 }
             }
+            .padding(20)
         }
-        .padding(20)
     }
 }
 

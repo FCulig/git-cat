@@ -18,12 +18,15 @@ class MainViewModel: ObservableObject {
         
     let mainMenuViewModel: MainMenuViewModel
     let topBarViewModel: TopBarViewModel
+    let directorySelectionViewModel: DirectorySelectionViewModel
     
     // MARK: - Initializer -
     
     init(mainMenuViewModel: MainMenuViewModel,
-         topBarViewModel: TopBarViewModel) {
+         topBarViewModel: TopBarViewModel,
+         directorySelectionViewModel: DirectorySelectionViewModel) {
         self.mainMenuViewModel = mainMenuViewModel
         self.topBarViewModel = topBarViewModel
+        self.directorySelectionViewModel = directorySelectionViewModel
     }
 }
