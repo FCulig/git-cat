@@ -21,11 +21,11 @@ struct ChangedFilesListView: View {
     // MARK: - Body -
     
     var body: some View {
-//        if viewModel.changedFiles.isEmpty {
-//            noChangesMessage
-//        } else {
+        if viewModel.changedFiles.isEmpty {
+            noChangesMessage
+        } else {
             changedFilesList
-//        }
+        }
     }
 }
 
@@ -72,11 +72,22 @@ private extension ChangedFilesListView {
 private extension ChangedFilesListView {
     @ViewBuilder var comparedToUpstreamBanner: some View {
         if !viewModel.upstreamCommitDifferece.isEmpty {
-            Text(viewModel.upstreamCommitDifferece)
-                .frame(maxWidth: .infinity)
-                .padding(16)
-                .border(.yellow, width: 1)
-                .background(.yellow.opacity(0.1))
+            HStack(spacing: 0) {
+                Spacer()
+                
+                Text(viewModel.upstreamCommitDifferece)
+                    .padding(.trailing, 16)
+                
+                Button(action: viewModel.pushChanges) {
+                    Text("Push changes")
+                }
+                
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .padding(16)
+            .border(.yellow, width: 1)
+            .background(.yellow.opacity(0.1))
         }
     }
 }
