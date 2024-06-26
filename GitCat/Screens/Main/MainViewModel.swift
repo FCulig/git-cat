@@ -27,12 +27,17 @@ class MainViewModel: ObservableObject {
     
     init(mainMenuViewModel: MainMenuViewModel,
          topBarViewModel: TopBarViewModel,
-         directorySelectionViewModel: DirectorySelectionViewModel) {
+         directorySelectionViewModel: DirectorySelectionViewModel,
+         gitService: GitService) {
         self.mainMenuViewModel = mainMenuViewModel
         self.topBarViewModel = topBarViewModel
         self.directorySelectionViewModel = directorySelectionViewModel
         
         setRepoName()
+        
+        gitService.changedFiles
+            .sink { [weak self] _ in self?.setRepoName() }
+            .store(in: &cancellables)
     }
 }
 

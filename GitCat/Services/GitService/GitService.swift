@@ -140,10 +140,6 @@ private extension GitService {
         
         return files
     }
-    
-    func parseRevListOutput(_ output: String) {
-        
-    }
 }
 
 // MARK: - Parsing git diff output -

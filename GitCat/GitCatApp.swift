@@ -21,7 +21,8 @@ struct GitCatApp: App {
         return WindowGroup {
             MainView(viewModel: MainViewModel(mainMenuViewModel: MainMenuViewModel(fileListViewModel: fileListViewModel),
                                               topBarViewModel: TopBarViewModel(gitService: gitService),
-                                             directorySelectionViewModel: directorySelectionViewModel))
+                                              directorySelectionViewModel: directorySelectionViewModel,
+                                              gitService: gitService))
             .onAppear {
                 DispatchQueue.main.async {
                     gitService.refreshChangedFiles()

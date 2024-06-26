@@ -42,7 +42,11 @@ extension DirectorySelectionViewModel {
         openPanel.canChooseDirectories = true
         openPanel.canChooseFiles = false
         
-        guard openPanel.runModal() == .OK,
+        let panelResult = openPanel.runModal()
+        
+        if panelResult != .OK { return }
+        
+        guard panelResult == .OK,
               let url = openPanel.url?.path(),
               isValid(directory: url) else {
             isShowingInvalidWorkspaceAlert = true
