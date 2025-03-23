@@ -18,25 +18,30 @@ class MainViewModel: ObservableObject {
     // MARK: - Public properties -
     
     @Published var repoName: String = ""
+    @Published var selectedItem: MainMenuItem = .workingDirectory
         
     let mainMenuViewModel: MainMenuViewModel
-    let topBarViewModel: TopBarViewModel
     let directorySelectionViewModel: DirectorySelectionViewModel
+    let fileListViewModel: FileListViewModel
     
     // MARK: - Initializer -
     
-    init(mainMenuViewModel: MainMenuViewModel,
-         topBarViewModel: TopBarViewModel,
-         directorySelectionViewModel: DirectorySelectionViewModel,
+    init(directorySelectionViewModel: DirectorySelectionViewModel,
+         fileListViewModel: FileListViewModel,
          gitService: GitService) {
-        self.mainMenuViewModel = mainMenuViewModel
-        self.topBarViewModel = topBarViewModel
+        self.mainMenuViewModel = MainMenuViewModel()
+        self.fileListViewModel = fileListViewModel
         self.directorySelectionViewModel = directorySelectionViewModel
         
         setRepoName()
         
         gitService.changedFiles
             .sink { [weak self] _ in self?.setRepoName() }
+            .store(in: &cancellables)
+        
+        mainMenuViewModel.$selectedItem
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.selectedItem = $0 }
             .store(in: &cancellables)
     }
 }

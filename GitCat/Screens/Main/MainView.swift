@@ -23,7 +23,12 @@ struct MainView: View {
         NavigationSplitView {
             MainMenuView(viewModel: viewModel.mainMenuViewModel)
         } content: {
-            Text("Please select main menu item")
+            switch viewModel.selectedItem {
+            case .workingDirectory:
+                FileListView(viewModel: viewModel.fileListViewModel)
+            case .commits:
+                Text("One nice and sunny day you will see commits here.")
+            }
         } detail: {
             Text("Please select file from changed file list")
         }

@@ -5,17 +5,9 @@
 //  Created by Filip Čulig on 25.05.2024..
 //
 
-import Foundation
+import Combine
 
-// MARK: - MainMenuViewModel -
+// MARK: - MainMenuViewModel
 final class MainMenuViewModel: ObservableObject {
-    // MARK: - Public properties -
-    
-    let fileListViewModel: FileListViewModel
-    
-    // MARK: - Initializer -
-    
-    init(fileListViewModel: FileListViewModel) {
-        self.fileListViewModel = fileListViewModel
-    }
+    @Published var selectedItem: MainMenuItem = .workingDirectory
 }

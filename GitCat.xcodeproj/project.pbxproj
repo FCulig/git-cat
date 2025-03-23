@@ -36,8 +36,6 @@
 		D0C4EC802C287B2700A96C19 /* DirectorySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C4EC7F2C287B2700A96C19 /* DirectorySelectionView.swift */; };
 		D0C4EC822C287B5200A96C19 /* DirectorySelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C4EC812C287B5200A96C19 /* DirectorySelectionViewModel.swift */; };
 		D0EB5CC52C032E3A006341D2 /* ChangedFileListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EB5CC42C032E3A006341D2 /* ChangedFileListItemViewModel.swift */; };
-		D0F9D0822BFFB3A700A18BE4 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0812BFFB3A700A18BE4 /* TopBarView.swift */; };
-		D0F9D0842BFFB3C100A18BE4 /* TopBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0832BFFB3C100A18BE4 /* TopBarViewModel.swift */; };
 		D0F9D0872BFFCEC400A18BE4 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */; };
 		DA8E35EA77562C33F2FDDECA /* Pods_GitCat_GitCatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD796F51C3E23945D15A677D /* Pods_GitCat_GitCatUITests.framework */; };
 		E4A4C100AB8629E1A9600C2E /* Pods_GitCatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF10FD98243EE860794946C5 /* Pods_GitCatTests.framework */; };
@@ -99,8 +97,6 @@
 		D0C4EC7F2C287B2700A96C19 /* DirectorySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorySelectionView.swift; sourceTree = "<group>"; };
 		D0C4EC812C287B5200A96C19 /* DirectorySelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorySelectionViewModel.swift; sourceTree = "<group>"; };
 		D0EB5CC42C032E3A006341D2 /* ChangedFileListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFileListItemViewModel.swift; sourceTree = "<group>"; };
-		D0F9D0812BFFB3A700A18BE4 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
-		D0F9D0832BFFB3C100A18BE4 /* TopBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarViewModel.swift; sourceTree = "<group>"; };
 		D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		F6547F92E8CCE7082977FEE3 /* Pods-GitCat-GitCatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat-GitCatUITests.debug.xcconfig"; path = "Target Support Files/Pods-GitCat-GitCatUITests/Pods-GitCat-GitCatUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FD796F51C3E23945D15A677D /* Pods_GitCat_GitCatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCat_GitCatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,7 +184,6 @@
 		D01888132AC4593800CB874D /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D0F9D0802BFFB39300A18BE4 /* TopBar */,
 				D018881A2AC45A3400CB874D /* Changes */,
 				D01888152AC459AA00CB874D /* MainView.swift */,
 				D018881D2AC45C1600CB874D /* MainViewModel.swift */,
@@ -342,15 +337,6 @@
 				D0C4EC812C287B5200A96C19 /* DirectorySelectionViewModel.swift */,
 			);
 			path = DirectorySelection;
-			sourceTree = "<group>";
-		};
-		D0F9D0802BFFB39300A18BE4 /* TopBar */ = {
-			isa = PBXGroup;
-			children = (
-				D0F9D0812BFFB3A700A18BE4 /* TopBarView.swift */,
-				D0F9D0832BFFB3C100A18BE4 /* TopBarViewModel.swift */,
-			);
-			path = TopBar;
 			sourceTree = "<group>";
 		};
 		D0F9D0852BFFCEB400A18BE4 /* Icons */ = {
@@ -570,12 +556,10 @@
 				D01888192AC459CF00CB874D /* FileListView.swift in Sources */,
 				D01888202AC4607200CB874D /* ChangesViewModel.swift in Sources */,
 				D0450CCE2AF539E400927A86 /* Change.swift in Sources */,
-				D0F9D0842BFFB3C100A18BE4 /* TopBarViewModel.swift in Sources */,
 				D01888162AC459AA00CB874D /* MainView.swift in Sources */,
 				D0061AF72AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift in Sources */,
 				D0450CCA2AF3D68900927A86 /* ChangedFileListItemView.swift in Sources */,
 				D0C4EC822C287B5200A96C19 /* DirectorySelectionViewModel.swift in Sources */,
-				D0F9D0822BFFB3A700A18BE4 /* TopBarView.swift in Sources */,
 				D0061AF92AC4BC190051DEA0 /* GitService.swift in Sources */,
 				D017CE0C2BE77C1600040BD6 /* AppColor.swift in Sources */,
 				D0061AFC2AC588460051DEA0 /* File.swift in Sources */,
@@ -750,12 +734,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GitCat/GitCat.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GitCat/Preview Content\"";
-				DEVELOPMENT_TEAM = T7H3GU2L95;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -780,12 +764,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GitCat/GitCat.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GitCat/Preview Content\"";
-				DEVELOPMENT_TEAM = T7H3GU2L95;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
