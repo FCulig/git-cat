@@ -18,7 +18,6 @@ class FileListViewModel: ObservableObject {
     // MARK: - Public properties -
     
     @Published var isWorkspaceSelected: Bool
-    @Published var selectedFile: File?
     
     let directorySelectionViewModel: DirectorySelectionViewModel
     let changedFilesListViewModel: ChangedFilesListViewModel
@@ -31,17 +30,5 @@ class FileListViewModel: ObservableObject {
         self.changedFilesListViewModel = changedFilesListViewModel
         
         isWorkspaceSelected = UserDefaults.standard.string(forKey: Self.workspacePathUserDefaultsKey) != nil
-        
-        subscribeFileSelection()
-    }
-}
-
-// MARK: - Private methods -
-
-private extension FileListViewModel {
-    func subscribeFileSelection() {
-        changedFilesListViewModel.$selectedFile
-            .sink { [weak self] in self?.selectedFile = $0 }
-            .store(in: &cancellables)
     }
 }

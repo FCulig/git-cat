@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - ChangedFileListItemView -
 struct ChangedFileListItemView: View {
-    @ObservedObject private var viewModel: ChangedFileListItemViewModel
+    @State private var viewModel: ChangedFileListItemViewModel
     
     init(viewModel: ChangedFileListItemViewModel) {
         self.viewModel = viewModel

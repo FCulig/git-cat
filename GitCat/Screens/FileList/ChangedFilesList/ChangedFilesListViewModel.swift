@@ -17,8 +17,8 @@ class ChangedFilesListViewModel: ObservableObject {
     
     @Published var upstreamCommitDiffereceMessage: String?
     @Published var commitMessage = ""
-    @Published var changedFiles: [File] = []
-    @Published var selectedFile: File?
+    @Published var changedFiles: [ChangedFileListItemViewModel] = []
+    @Published var selectedFile: ChangedFileListItemViewModel?
     let gitService: GitService
     
     // MARK: - Initializer -
@@ -53,7 +53,10 @@ extension ChangedFilesListViewModel {
 private extension ChangedFilesListViewModel {
     func subscribeChanges() {
         gitService.changedFiles
-            .sink { [weak self] in self?.changedFiles = $0 }
+            .sink { [weak self] in
+                guard let self else { return }
+                self.changedFiles = $0.map { ChangedFileListItemViewModel(file: $0) }
+            }
             .store(in: &cancellables)
         
         gitService.commitsComparedToUpstream

@@ -7,10 +7,18 @@
 
 import Foundation
 
-final class ChangedFileListItemViewModel: ObservableObject {
+struct ChangedFileListItemViewModel: Hashable, Identifiable {
+    let id = UUID()
     let file: File
     
     init(file: File) {
         self.file = file
+    }
+}
+
+extension ChangedFileListItemViewModel: Equatable {
+    static func == (lhs: ChangedFileListItemViewModel, rhs: ChangedFileListItemViewModel) -> Bool {
+        rhs.file == lhs.file &&
+        rhs.id == lhs.id
     }
 }

@@ -32,7 +32,7 @@ enum FileStatus: String {
 }
 
 // MARK: - File -
-struct File: Hashable, Identifiable {
+struct File: Hashable, Identifiable, Equatable {
     let id = UUID()
     let filePath: String
     /// Status of the file in the stageing area.

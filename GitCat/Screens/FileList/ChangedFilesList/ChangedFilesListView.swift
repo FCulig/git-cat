@@ -51,19 +51,15 @@ private extension ChangedFilesListView {
     }
     
     var changedFiles: some View {
-        ScrollView {
-            ForEach(viewModel.changedFiles, id: \.self) { changedFile in
+        List(selection: $viewModel.selectedFile) {
+            ForEach(viewModel.changedFiles) { changedFile in
                 NavigationLink(value: changedFile) {
-                    ChangedFileListItemView(viewModel: .init(file: changedFile))
-                        .background(changedFile == viewModel.selectedFile ? Color.gray.opacity(0.4) : Color.clear)
+                    ChangedFileListItemView(viewModel: changedFile)
                         .clipShape(RoundedRectangle(cornerRadius: 3))
                 }
-                .buttonStyle(PlainButtonStyle())
             }
         }
-        .navigationDestination(for: File.self) { changedFile in
-            ChangesView(viewModel: .init(changedFile: changedFile, gitService: viewModel.gitService))
-        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 

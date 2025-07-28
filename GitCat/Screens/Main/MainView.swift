@@ -30,7 +30,11 @@ struct MainView: View {
                 Text("One nice and sunny day you will see commits here.")
             }
         } detail: {
-            Text("Please select file from changed file list")
+            if let changesViewModel = viewModel.changesViewModel {
+                ChangesView(viewModel: changesViewModel)
+            } else {
+                Text("Please select file from changed file list")
+            }
         }
         .navigationTitle("")
         .toolbar { toolbarItem }

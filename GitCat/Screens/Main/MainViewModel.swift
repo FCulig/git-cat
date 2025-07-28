@@ -19,7 +19,8 @@ class MainViewModel: ObservableObject {
     
     @Published var repoName: String = ""
     @Published var selectedItem: MainMenuItem = .workingDirectory
-        
+    @Published var changesViewModel: ChangesViewModel?
+    
     let mainMenuViewModel: MainMenuViewModel
     let directorySelectionViewModel: DirectorySelectionViewModel
     let fileListViewModel: FileListViewModel
@@ -42,6 +43,15 @@ class MainViewModel: ObservableObject {
         mainMenuViewModel.$selectedItem
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in self?.selectedItem = $0 }
+            .store(in: &cancellables)
+        
+        fileListViewModel.changedFilesListViewModel.$selectedFile
+            .compactMap { $0?.file }
+            .sink { [weak self] file in
+                DispatchQueue.main.async {
+                    self?.changesViewModel = .init(changedFile: file, gitService: gitService)
+                }
+            }
             .store(in: &cancellables)
     }
 }
