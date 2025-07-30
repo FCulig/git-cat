@@ -60,6 +60,7 @@ private extension ChangedFilesListView {
             }
         }
         .buttonStyle(PlainButtonStyle())
+        .clipShape(RoundedRectangle(cornerRadius: 6))
     }
 }
 
@@ -67,11 +68,11 @@ private extension ChangedFilesListView {
 
 private extension ChangedFilesListView {
     @ViewBuilder var comparedToUpstreamBanner: some View {
-        if let upstreamCommitDiffereceMessage = viewModel.upstreamCommitDiffereceMessage {
+        if let upstreamCommitDifferenceMessage = viewModel.upstreamCommitDifferenceMessage {
             HStack(spacing: 0) {
                 Spacer()
                 
-                Text(upstreamCommitDiffereceMessage)
+                Text(upstreamCommitDifferenceMessage)
                     .padding(.trailing, 16)
                 
                 Button(action: viewModel.pushChanges) {

@@ -12,7 +12,7 @@ class ChangesViewModel: ObservableObject {
     // MARK: - Private properties -
     
     private let changedFile: File?
-    let gitService: GitService
+    private let gitService: GitService
     
     // MARK: - Public properties -
     
@@ -21,10 +21,11 @@ class ChangesViewModel: ObservableObject {
     
     // MARK: - Initializer -
     
-    init(changedFile: File?, gitService: GitService) {
+    init(changedFile: File, gitService: GitService) {
         self.changedFile = changedFile
         self.gitService = gitService
         
+        isFileStaged = changedFile.isStaged
         updateFileChanges(for: changedFile)
     }
 }
@@ -52,9 +53,7 @@ extension ChangesViewModel {
 // MARK: - Private methods -
 
 private extension ChangesViewModel {
-    func updateFileChanges(for file: File?) {
-        guard let file else { return }
-        
+    func updateFileChanges(for file: File) {
         var changesStringByLine = gitService.getChangesFor(file: file).split(separator: "\n")
         let firstChangeIndex = changesStringByLine.firstIndex(where: { $0.starts(with: "@@") })
         

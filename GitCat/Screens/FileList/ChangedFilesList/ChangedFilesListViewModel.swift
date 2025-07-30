@@ -15,7 +15,7 @@ class ChangedFilesListViewModel: ObservableObject {
     
     // MARK: - Public properties -
     
-    @Published var upstreamCommitDiffereceMessage: String?
+    @Published var upstreamCommitDifferenceMessage: String?
     @Published var commitMessage = ""
     @Published var changedFiles: [ChangedFileListItemViewModel] = []
     @Published var selectedFile: ChangedFileListItemViewModel?
@@ -42,9 +42,8 @@ extension ChangedFilesListViewModel {
         commitMessage = ""
         selectedFile = nil
         
-        if shouldPushChanges {
-            gitService.push()
-        }
+        guard shouldPushChanges else { return }
+        gitService.push()
     }
 }
 
@@ -53,6 +52,7 @@ extension ChangedFilesListViewModel {
 private extension ChangedFilesListViewModel {
     func subscribeChanges() {
         gitService.changedFiles
+            .removeDuplicates()
             .sink { [weak self] in
                 guard let self else { return }
                 self.changedFiles = $0.map { ChangedFileListItemViewModel(file: $0) }
@@ -70,7 +70,7 @@ private extension ChangedFilesListViewModel {
                     return "Your branch is \(numberOfCommits) commit behind of the upstream."
                 }
             }
-            .sink { [weak self] in self?.upstreamCommitDiffereceMessage = $0 }
+            .sink { [weak self] in self?.upstreamCommitDifferenceMessage = $0 }
             .store(in: &cancellables)
     }
 }

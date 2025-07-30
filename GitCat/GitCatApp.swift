@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct GitCatApp: App {
+    @State private var didAppear = false
+    
     var body: some Scene {
         let shellService = ShellService()
         let fileService = FileService()
@@ -23,16 +25,22 @@ struct GitCatApp: App {
                                               fileListViewModel: fileListViewModel,
                                               gitService: gitService))
             .onAppear {
+                guard !didAppear else { return }
+                
                 DispatchQueue.main.async {
                     gitService.refreshChangedFiles()
+                    didAppear = true
                 }
             }
+            // Disabled while in development to allow easier debugging. Constant file refreshes make it hard to track
+            // what is going on.
+            //
             // Refresh file status each time focus gets switched to the app
-            .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
-                DispatchQueue.main.async {
-                    gitService.refreshChangedFiles()
-                }
-            }
+            //.onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            //    DispatchQueue.main.async {
+            //        gitService.refreshChangedFiles()
+            //    }
+            //}
         }
     }
 }
