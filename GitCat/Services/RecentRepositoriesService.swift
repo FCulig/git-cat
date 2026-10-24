@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 // MARK: - RecentRepositoriesService -
 final class RecentRepositoriesService {
@@ -87,12 +88,20 @@ private extension RecentRepositoriesService {
 
     static func loadRecents() -> [RecentRepository] {
         guard let data = UserDefaults.standard.data(forKey: recentsUserDefaultsKey) else { return [] }
-        return (try? JSONDecoder().decode([RecentRepository].self, from: data)) ?? []
+        do {
+            return try JSONDecoder().decode([RecentRepository].self, from: data)
+        } catch {
+            Logger.recents.error("Couldn't decode recent repositories: \(error.localizedDescription)")
+            return []
+        }
     }
 
     func save(_ recents: [RecentRepository]) {
-        if let data = try? JSONEncoder().encode(recents) {
+        do {
+            let data = try JSONEncoder().encode(recents)
             UserDefaults.standard.setValue(data, forKey: Self.recentsUserDefaultsKey)
+        } catch {
+            Logger.recents.error("Couldn't encode recent repositories: \(error.localizedDescription)")
         }
         recentsSubject.send(recents)
     }

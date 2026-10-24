@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 // MARK: - FileService -
 class FileService {
@@ -22,7 +23,7 @@ extension FileService {
         do {
             files = try fm.contentsOfDirectory(atPath: directory)
         } catch {
-            print(error)
+            Logger.files.error("Couldn't list contents of \(directory): \(error.localizedDescription)")
         }
         
         return files

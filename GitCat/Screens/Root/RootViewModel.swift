@@ -5,6 +5,7 @@
 //  Created by Filip Čulig on 24.10.2026..
 //
 
+import OSLog
 import SwiftUI
 
 // MARK: - RootScreen -
@@ -114,6 +115,7 @@ private extension RootViewModel {
                 opening?.finish(step)
             }
         } catch {
+            Logger.navigation.error("Couldn't open \(repository.path): \(error.localizedDescription)")
             // Stay on the welcome screen, so another repository can be picked.
             withAnimation(.easeOut(duration: 0.22)) { opening = nil }
             openingError = OpeningError(repositoryName: repository.name, message: error.localizedDescription)

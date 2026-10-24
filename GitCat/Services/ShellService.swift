@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 // MARK: - ShellResult -
 struct ShellResult {
@@ -34,6 +35,7 @@ extension ShellService {
     /// Executes the command in `directory`, or in the selected workspace when no directory is given.
     func run(_ command: String, in directory: String? = nil) -> ShellResult {
         guard let workingDirectory = directory ?? UserDefaults.standard.string(forKey: Self.workspacePathUserDefaultsKey) else {
+            Logger.shell.error("Can't run \(command): no workspace selected")
             return ShellResult(output: "", errorOutput: "No workspace selected", exitCode: -1)
         }
 
@@ -51,6 +53,7 @@ extension ShellService {
         do {
             try task.run()
         } catch {
+            Logger.shell.error("Couldn't launch \(command) in \(workingDirectory): \(error.localizedDescription)")
             return ShellResult(output: "", errorOutput: error.localizedDescription, exitCode: -1)
         }
 
@@ -66,8 +69,11 @@ extension ShellService {
         errorReading.wait()
         task.waitUntilExit()
 
-        return ShellResult(output: String(decoding: outputData, as: UTF8.self),
-                           errorOutput: String(decoding: errorData, as: UTF8.self),
-                           exitCode: task.terminationStatus)
+        let result = ShellResult(output: String(decoding: outputData, as: UTF8.self),
+                                 errorOutput: String(decoding: errorData, as: UTF8.self),
+                                 exitCode: task.terminationStatus)
+        // Callers decide whether a non-zero exit is an error, e.g. comparing with a missing upstream is expected to fail.
+        Logger.shell.debug("\(command) in \(workingDirectory) exited with \(result.exitCode)")
+        return result
     }
 }

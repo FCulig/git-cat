@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 // MARK: - GitRefreshStep -
 
@@ -75,7 +76,11 @@ extension GitService {
     /// Refreshes everything on the calling thread. Steps that fail keep their previously published values.
     func refreshChangedFiles() {
         GitRefreshStep.allCases.forEach { step in
-            if let result = try? load(step) { publish(result) }
+            do {
+                publish(try load(step))
+            } catch {
+                Logger.git.error("\(step.title, privacy: .public) failed: \(error.localizedDescription)")
+            }
         }
     }
     
@@ -93,22 +98,22 @@ extension GitService {
     }
     
     func stage(file: File) {
-        shellService.execute("\(GitCommands.add.rawValue) \(file.filePath)")
+        perform("\(GitCommands.add.rawValue) \(file.filePath)")
         refreshChangedFiles()
     }
     
     func unstage(file: File) {
-        shellService.execute("\(GitCommands.restore.rawValue) \(file.filePath)")
+        perform("\(GitCommands.restore.rawValue) \(file.filePath)")
         refreshChangedFiles()
     }
     
     func commit(message: String) {
-        shellService.execute("\(GitCommands.commit.rawValue) '\(message)'")
+        perform("\(GitCommands.commit.rawValue) '\(message)'")
         refreshChangedFiles()
     }
     
     func push() {
-        shellService.execute("\(GitCommands.push.rawValue)")
+        perform("\(GitCommands.push.rawValue)")
         refreshChangedFiles()
     }
 }
@@ -142,6 +147,15 @@ private extension GitService {
             throw GitError(message: message.isEmpty ? "\(command) failed" : message)
         }
         return result.output
+    }
+    
+    /// Runs a command whose failure is only logged, since nothing shows it to the user yet.
+    func perform(_ command: String) {
+        do {
+            _ = try run(command)
+        } catch {
+            Logger.git.error("\(command) failed: \(error.localizedDescription)")
+        }
     }
     
     func publish(_ result: RefreshResult) {
