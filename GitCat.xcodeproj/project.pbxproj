@@ -7,7 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012C43C778AC4BA1E91A441A /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAEAF9CC1D6806C1438A017 /* RootViewModel.swift */; };
+		1685156E0A63A083F9A5EF26 /* PillButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A15F6ED8EFB2F34236D4AE /* PillButtonStyle.swift */; };
+		2439D9BA75D0384326C2BE07 /* WindowConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8603B92007C252A3E785A2B /* WindowConfigurator.swift */; };
 		2BF9F2BDDA820DD0ABA7E9CC /* Pods_GitCat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7621329D393872906C7DAE0 /* Pods_GitCat.framework */; };
+		2F45BF56F6CA5C159A27D364 /* RecentRepositoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4DE5D3CF1D5B052A7CE9C /* RecentRepositoriesService.swift */; };
+		396C5F59EC4D4E9EDD57156C /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36920FFAD66CABC1B48A48B /* WelcomeViewModel.swift */; };
+		73734A05F37BE3893AAE60F4 /* cat-loader-dark.json in Resources */ = {isa = PBXBuildFile; fileRef = 112A8204976A8FD3FD22A92D /* cat-loader-dark.json */; };
+		94F6C0EF42AA37DB64F8A174 /* OpeningRepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C8FC43EE1380BDC40940C /* OpeningRepositoryView.swift */; };
+		AC1B3AEC6A3B54D387F4F5A9 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112E64FA472B2ABA38551356 /* WelcomeView.swift */; };
+		B5154C021CFD438F4F9F6440 /* CatLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BD691AA939AAF14F81F6B5 /* CatLogoView.swift */; };
+		BEB4094C4C749F6129E8AE5C /* CatLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A982773E2918EC14C21019 /* CatLoaderView.swift */; };
+		CB45F187E87DCD936E3DEAF1 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 15FEF4E7178F532CF26C050E /* Lottie */; };
 		D0061AF52AC4BB980051DEA0 /* ChangedFilesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0061AF42AC4BB980051DEA0 /* ChangedFilesListView.swift */; };
 		D0061AF72AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0061AF62AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift */; };
 		D0061AF92AC4BC190051DEA0 /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0061AF82AC4BC190051DEA0 /* GitService.swift */; };
@@ -37,8 +48,14 @@
 		D0C4EC822C287B5200A96C19 /* DirectorySelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C4EC812C287B5200A96C19 /* DirectorySelectionViewModel.swift */; };
 		D0EB5CC52C032E3A006341D2 /* ChangedFileListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EB5CC42C032E3A006341D2 /* ChangedFileListItemViewModel.swift */; };
 		D0F9D0872BFFCEC400A18BE4 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */; };
+		D42BC26C2E0D81F7001F0907 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F940712081A7BB57A233C47A /* RootView.swift */; };
 		DA8E35EA77562C33F2FDDECA /* Pods_GitCat_GitCatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD796F51C3E23945D15A677D /* Pods_GitCat_GitCatUITests.framework */; };
 		E4A4C100AB8629E1A9600C2E /* Pods_GitCatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF10FD98243EE860794946C5 /* Pods_GitCatTests.framework */; };
+		EC1EFB97576C4761A2D5CBF8 /* cat-idle.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D10FAC12035D99D7D52F53E /* cat-idle.json */; };
+		EC339A27A73A6B7FB44E45AB /* RecentRepositoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E3E39E2E143E8E730CF37 /* RecentRepositoryRowView.swift */; };
+		FB56904161021DD0453F863A /* CatIdleAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB653A4572C2B25D4A02F10 /* CatIdleAnimator.swift */; };
+		FBABEC487FA4FC774E9BD2F3 /* RecentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9493508ADA607FE00FADC94 /* RecentRepository.swift */; };
+		FD261EA005BC512CD8EADDB7 /* cat-loader-light.json in Resources */ = {isa = PBXBuildFile; fileRef = 47C2EA750F61417077E49776 /* cat-loader-light.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,12 +76,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		112A8204976A8FD3FD22A92D /* cat-loader-dark.json */ = {isa = PBXFileReference; includeInIndex = 1; path = "cat-loader-dark.json"; sourceTree = "<group>"; };
+		112E64FA472B2ABA38551356 /* WelcomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		2D10FAC12035D99D7D52F53E /* cat-idle.json */ = {isa = PBXFileReference; includeInIndex = 1; path = "cat-idle.json"; sourceTree = "<group>"; };
+		2D9E3E39E2E143E8E730CF37 /* RecentRepositoryRowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecentRepositoryRowView.swift; sourceTree = "<group>"; };
+		3FB653A4572C2B25D4A02F10 /* CatIdleAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CatIdleAnimator.swift; sourceTree = "<group>"; };
+		47C2EA750F61417077E49776 /* cat-loader-light.json */ = {isa = PBXFileReference; includeInIndex = 1; path = "cat-loader-light.json"; sourceTree = "<group>"; };
+		49A15F6ED8EFB2F34236D4AE /* PillButtonStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PillButtonStyle.swift; sourceTree = "<group>"; };
+		62BD691AA939AAF14F81F6B5 /* CatLogoView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CatLogoView.swift; sourceTree = "<group>"; };
 		710617BAB780D02EE24E3ADB /* Pods-GitCat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat.release.xcconfig"; path = "Target Support Files/Pods-GitCat/Pods-GitCat.release.xcconfig"; sourceTree = "<group>"; };
 		73974C7314E3FABF71BD5E4A /* Pods-GitCatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCatTests.debug.xcconfig"; path = "Target Support Files/Pods-GitCatTests/Pods-GitCatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		78E3C791E58A980F5FDFCA0E /* Pods-GitCat-GitCatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat-GitCatUITests.release.xcconfig"; path = "Target Support Files/Pods-GitCat-GitCatUITests/Pods-GitCat-GitCatUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9246E07309F55872701C2FE4 /* Pods-GitCat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat.debug.xcconfig"; path = "Target Support Files/Pods-GitCat/Pods-GitCat.debug.xcconfig"; sourceTree = "<group>"; };
+		930C8FC43EE1380BDC40940C /* OpeningRepositoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpeningRepositoryView.swift; sourceTree = "<group>"; };
+		9DAEAF9CC1D6806C1438A017 /* RootViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		B622726E0147A0CE56DA77D5 /* Pods-GitCatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCatTests.release.xcconfig"; path = "Target Support Files/Pods-GitCatTests/Pods-GitCatTests.release.xcconfig"; sourceTree = "<group>"; };
 		B7621329D393872906C7DAE0 /* Pods_GitCat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9493508ADA607FE00FADC94 /* RecentRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecentRepository.swift; sourceTree = "<group>"; };
 		D0061AF42AC4BB980051DEA0 /* ChangedFilesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFilesListView.swift; sourceTree = "<group>"; };
 		D0061AF62AC4BBB30051DEA0 /* ChangedFilesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFilesListViewModel.swift; sourceTree = "<group>"; };
 		D0061AF82AC4BC190051DEA0 /* GitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
@@ -98,7 +126,12 @@
 		D0C4EC812C287B5200A96C19 /* DirectorySelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorySelectionViewModel.swift; sourceTree = "<group>"; };
 		D0EB5CC42C032E3A006341D2 /* ChangedFileListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangedFileListItemViewModel.swift; sourceTree = "<group>"; };
 		D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
+		D8603B92007C252A3E785A2B /* WindowConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WindowConfigurator.swift; sourceTree = "<group>"; };
+		D9A982773E2918EC14C21019 /* CatLoaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CatLoaderView.swift; sourceTree = "<group>"; };
+		F36920FFAD66CABC1B48A48B /* WelcomeViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		F5C4DE5D3CF1D5B052A7CE9C /* RecentRepositoriesService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecentRepositoriesService.swift; sourceTree = "<group>"; };
 		F6547F92E8CCE7082977FEE3 /* Pods-GitCat-GitCatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat-GitCatUITests.debug.xcconfig"; path = "Target Support Files/Pods-GitCat-GitCatUITests/Pods-GitCat-GitCatUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F940712081A7BB57A233C47A /* RootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		FD796F51C3E23945D15A677D /* Pods_GitCat_GitCatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCat_GitCatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF10FD98243EE860794946C5 /* Pods_GitCatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -109,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BF9F2BDDA820DD0ABA7E9CC /* Pods_GitCat.framework in Frameworks */,
+				CB45F187E87DCD936E3DEAF1 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +165,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1CBD4CA7479A7489308D2F89 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				2D10FAC12035D99D7D52F53E /* cat-idle.json */,
+				47C2EA750F61417077E49776 /* cat-loader-light.json */,
+				112A8204976A8FD3FD22A92D /* cat-loader-dark.json */,
+			);
+			name = Animations;
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		6472FD7E1F1D7EDB0B666AA5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1CBD4CA7479A7489308D2F89 /* Animations */,
+			);
+			name = Resources;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		654E46F5745FB14DAE30B16C /* Cat */ = {
+			isa = PBXGroup;
+			children = (
+				3FB653A4572C2B25D4A02F10 /* CatIdleAnimator.swift */,
+				62BD691AA939AAF14F81F6B5 /* CatLogoView.swift */,
+				D9A982773E2918EC14C21019 /* CatLoaderView.swift */,
+			);
+			name = Cat;
+			path = Cat;
+			sourceTree = "<group>";
+		};
 		6D0904D8C982B477BF00BBDA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +204,18 @@
 				FF10FD98243EE860794946C5 /* Pods_GitCatTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9D4663D6F70D2F072EC2DADF /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				112E64FA472B2ABA38551356 /* WelcomeView.swift */,
+				F36920FFAD66CABC1B48A48B /* WelcomeViewModel.swift */,
+				2D9E3E39E2E143E8E730CF37 /* RecentRepositoryRowView.swift */,
+				930C8FC43EE1380BDC40940C /* OpeningRepositoryView.swift */,
+			);
+			name = Welcome;
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		9E7FAA8CAC45752766A4B508 /* Pods */ = {
@@ -152,6 +229,15 @@
 				B622726E0147A0CE56DA77D5 /* Pods-GitCatTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C10EC1785CAD759C117D3404 /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				D8603B92007C252A3E785A2B /* WindowConfigurator.swift */,
+			);
+			name = Window;
+			path = Window;
 			sourceTree = "<group>";
 		};
 		D0061AF32AC4BB830051DEA0 /* ChangedFilesList */ = {
@@ -169,6 +255,7 @@
 			children = (
 				D0061AFB2AC588460051DEA0 /* File.swift */,
 				D0450CCD2AF539E400927A86 /* Change.swift */,
+				B9493508ADA607FE00FADC94 /* RecentRepository.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -197,6 +284,8 @@
 				D01888172AC459B300CB874D /* FileList */,
 				D076E7612C0206E2006301EA /* MainMenu */,
 				D01888132AC4593800CB874D /* Main */,
+				9D4663D6F70D2F072EC2DADF /* Welcome */,
+				EA988C43682ECB610E4E02B7 /* Root */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -226,6 +315,7 @@
 				D02109E42AC8359C00A64C4F /* GitService */,
 				D01888242AC469BE00CB874D /* FileService.swift */,
 				D02109E22AC76B9200A64C4F /* ShellService.swift */,
+				F5C4DE5D3CF1D5B052A7CE9C /* RecentRepositoriesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -263,6 +353,7 @@
 				D01F56132AC455B700AF4342 /* Assets.xcassets */,
 				D01F56182AC455B700AF4342 /* GitCat.entitlements */,
 				D01F56152AC455B700AF4342 /* Preview Content */,
+				6472FD7E1F1D7EDB0B666AA5 /* Resources */,
 			);
 			path = GitCat;
 			sourceTree = "<group>";
@@ -307,6 +398,9 @@
 				D0C4EC7E2C287B0300A96C19 /* DirectorySelection */,
 				D0F9D0852BFFCEB400A18BE4 /* Icons */,
 				D017CE0A2BE77C0700040BD6 /* Colors */,
+				654E46F5745FB14DAE30B16C /* Cat */,
+				F9E6EACCA3BA526D08FF8F80 /* Buttons */,
+				C10EC1785CAD759C117D3404 /* Window */,
 			);
 			path = ReusableComponents;
 			sourceTree = "<group>";
@@ -347,6 +441,25 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		EA988C43682ECB610E4E02B7 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				F940712081A7BB57A233C47A /* RootView.swift */,
+				9DAEAF9CC1D6806C1438A017 /* RootViewModel.swift */,
+			);
+			name = Root;
+			path = Root;
+			sourceTree = "<group>";
+		};
+		F9E6EACCA3BA526D08FF8F80 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				49A15F6ED8EFB2F34236D4AE /* PillButtonStyle.swift */,
+			);
+			name = Buttons;
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -364,6 +477,9 @@
 			dependencies = (
 			);
 			name = GitCat;
+			packageProductDependencies = (
+				15FEF4E7178F532CF26C050E /* Lottie */,
+			);
 			productName = GitCat;
 			productReference = D01F560C2AC455B700AF4342 /* GitCat.app */;
 			productType = "com.apple.product-type.application";
@@ -438,6 +554,9 @@
 				Base,
 			);
 			mainGroup = D01F56032AC455B700AF4342;
+			packageReferences = (
+				DE90DE77660BAA96C6D0813A /* XCRemoteSwiftPackageReference "lottie-spm" */,
+			);
 			productRefGroup = D01F560D2AC455B700AF4342 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -456,6 +575,9 @@
 			files = (
 				D01F56172AC455B700AF4342 /* Preview Assets.xcassets in Resources */,
 				D01F56142AC455B700AF4342 /* Assets.xcassets in Resources */,
+				EC1EFB97576C4761A2D5CBF8 /* cat-idle.json in Resources */,
+				FD261EA005BC512CD8EADDB7 /* cat-loader-light.json in Resources */,
+				73734A05F37BE3893AAE60F4 /* cat-loader-dark.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +695,19 @@
 				D0F9D0872BFFCEC400A18BE4 /* AppIcon.swift in Sources */,
 				D01F56102AC455B700AF4342 /* GitCatApp.swift in Sources */,
 				D018881C2AC45AD000CB874D /* ChangesView.swift in Sources */,
+				FBABEC487FA4FC774E9BD2F3 /* RecentRepository.swift in Sources */,
+				2F45BF56F6CA5C159A27D364 /* RecentRepositoriesService.swift in Sources */,
+				FB56904161021DD0453F863A /* CatIdleAnimator.swift in Sources */,
+				B5154C021CFD438F4F9F6440 /* CatLogoView.swift in Sources */,
+				BEB4094C4C749F6129E8AE5C /* CatLoaderView.swift in Sources */,
+				1685156E0A63A083F9A5EF26 /* PillButtonStyle.swift in Sources */,
+				2439D9BA75D0384326C2BE07 /* WindowConfigurator.swift in Sources */,
+				AC1B3AEC6A3B54D387F4F5A9 /* WelcomeView.swift in Sources */,
+				396C5F59EC4D4E9EDD57156C /* WelcomeViewModel.swift in Sources */,
+				EC339A27A73A6B7FB44E45AB /* RecentRepositoryRowView.swift in Sources */,
+				94F6C0EF42AA37DB64F8A174 /* OpeningRepositoryView.swift in Sources */,
+				D42BC26C2E0D81F7001F0907 /* RootView.swift in Sources */,
+				012C43C778AC4BA1E91A441A /* RootViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -909,6 +1044,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DE90DE77660BAA96C6D0813A /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		15FEF4E7178F532CF26C050E /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE90DE77660BAA96C6D0813A /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D01F56042AC455B700AF4342 /* Project object */;
 }

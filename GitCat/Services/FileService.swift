@@ -27,4 +27,8 @@ extension FileService {
         
         return files
     }
+    
+    func isGitRepository(at directory: String) -> Bool {
+        getContents(of: directory).contains(".git")
+    }
 }

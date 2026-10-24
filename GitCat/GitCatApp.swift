@@ -9,29 +9,11 @@ import SwiftUI
 
 @main
 struct GitCatApp: App {
-    @State private var didAppear = false
+    @StateObject private var rootViewModel = RootViewModel()
     
     var body: some Scene {
-        let shellService = ShellService()
-        let fileService = FileService()
-        let gitService = GitService(shellService: shellService)
-        let directorySelectionViewModel = DirectorySelectionViewModel(fileService: fileService,
-                                                                      gitService: gitService)
-        let fileListViewModel = FileListViewModel(directorySelectionViewModel: directorySelectionViewModel,
-                                                  changedFilesListViewModel: ChangedFilesListViewModel(gitService: gitService))
-        
-        return WindowGroup {
-            MainView(viewModel: MainViewModel(directorySelectionViewModel: directorySelectionViewModel,
-                                              fileListViewModel: fileListViewModel,
-                                              gitService: gitService))
-            .onAppear {
-                guard !didAppear else { return }
-                
-                DispatchQueue.main.async {
-                    gitService.refreshChangedFiles()
-                    didAppear = true
-                }
-            }
+        WindowGroup {
+            RootView(viewModel: rootViewModel)
             // Disabled while in development to allow easier debugging. Constant file refreshes make it hard to track
             // what is going on.
             //
@@ -42,5 +24,8 @@ struct GitCatApp: App {
             //    }
             //}
         }
+        // Welcome screen draws under the title bar. Window size and title bar are adjusted per screen by
+        // `WindowConfigurator`.
+        .windowStyle(.hiddenTitleBar)
     }
 }

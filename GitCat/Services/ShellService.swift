@@ -16,8 +16,9 @@ class ShellService {
 // MARK: - Public methods -
 
 extension ShellService {
-    @discardableResult func execute(_ command: String) -> String {
-        guard let workingDirectory = UserDefaults.standard.string(forKey: Self.workspacePathUserDefaultsKey) else { return "" }
+    /// Executes the command in `directory`, or in the selected workspace when no directory is given.
+    @discardableResult func execute(_ command: String, in directory: String? = nil) -> String {
+        guard let workingDirectory = directory ?? UserDefaults.standard.string(forKey: Self.workspacePathUserDefaultsKey) else { return "" }
         
         let task = Process()
         let pipe = Pipe()

@@ -15,6 +15,7 @@ final class DirectorySelectionViewModel: ObservableObject {
     private static let workspacePathUserDefaultsKey = "WorkspacePath"
     private let fileService: FileService
     private let gitService: GitService
+    private let recentRepositoriesService: RecentRepositoriesService
     
     // MARK: - Public properties
     
@@ -24,9 +25,11 @@ final class DirectorySelectionViewModel: ObservableObject {
     // MARK: - Initializer
     
     init(fileService: FileService,
-         gitService: GitService) {
+         gitService: GitService,
+         recentRepositoriesService: RecentRepositoriesService) {
         self.fileService = fileService
         self.gitService = gitService
+        self.recentRepositoriesService = recentRepositoriesService
         
         isWorkspaceSelected = UserDefaults.standard.string(forKey: Self.workspacePathUserDefaultsKey) != nil
     }
@@ -54,6 +57,7 @@ extension DirectorySelectionViewModel {
         }
         
         UserDefaults.standard.setValue(url, forKey: Self.workspacePathUserDefaultsKey)
+        recentRepositoriesService.add(path: url)
         isWorkspaceSelected = true
         gitService.refreshChangedFiles()
     }
@@ -63,7 +67,6 @@ extension DirectorySelectionViewModel {
 
 private extension DirectorySelectionViewModel {
     func isValid(directory url: String) -> Bool {
-        let contents = fileService.getContents(of: url)
-        return contents.contains(".git")
+        fileService.isGitRepository(at: url)
     }
 }

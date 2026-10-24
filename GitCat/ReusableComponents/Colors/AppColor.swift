@@ -7,7 +7,33 @@
 
 import SwiftUI
 
-// Inspirations:
-// https://medium.com/snapp-mobile/design-for-the-dark-theme-9a2185bbb1d5
-//
 enum AppColor { }
+
+// MARK: - Surfaces -
+
+extension AppColor {
+    static let background = Color(.primaryBackground)
+    static let secondaryBackground = Color(.secondaryBackground)
+    static let buttonBackground = Color(.buttonBackground)
+    static let checkboxBackground = Color(.checkboxBackground)
+    static let checkboxBorder = Color(.checkboxBorder)
+    static let line = Color(.hairline)
+    static let windowLine = Color(.windowBorder)
+}
+
+// MARK: - Text -
+
+extension AppColor {
+    static let primaryText = Color(.primaryText)
+    static let secondaryText = Color(.secondaryText)
+    static let tertiaryText = Color(.tertiaryText)
+}
+
+// MARK: - Accents -
+
+extension AppColor {
+    static let accent = Color(.brand)
+    static let accentHighlighted = Color(.brandHighlighted)
+    static let added = Color(.added)
+    static let removed = Color(.removed)
+}
