@@ -11,9 +11,11 @@ enum GitCommands: String {
     case commit = "git commit -m"
     case currentBranch = "git rev-parse --abbrev-ref HEAD"
     case diff = "git diff" // TODO: Replace this with git add -p, https://stackoverflow.com/questions/1085162/commit-only-part-of-a-files-changes-in-git
-    case listOfBranches = "git branch -r | grep -v '\\->' | sed \"s,\\x1B\\[[0-9;]*[a-zA-Z],,g\" | while read remote; do git branch --track \"${remote#origin/}\" \"$remote\"; done"
+    /// Local and remote branch names, one per line. Symbolic refs such as `origin/HEAD` end with a tab and their target.
+    case listOfBranches = "git for-each-ref --format='%(refname:short)%09%(symref)' refs/heads refs/remotes"
     case push = "git push origin main" // TODO: Ability to chose origin and branch to which to push
-    case revList = "git rev-list"
+    /// Prints "<commits ahead>\t<commits behind>" compared to the current branch's upstream. Fails without an upstream.
+    case upstreamComparison = "git rev-list --left-right --count 'HEAD...@{upstream}'"
     case restore = "git restore --staged"
     case status = "git status"
 }

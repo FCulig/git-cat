@@ -46,6 +46,7 @@
 		D076E7672C020B29006301EA /* MainMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D076E7662C020B29006301EA /* MainMenuViewModel.swift */; };
 		D0C4EC802C287B2700A96C19 /* DirectorySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C4EC7F2C287B2700A96C19 /* DirectorySelectionView.swift */; };
 		D0C4EC822C287B5200A96C19 /* DirectorySelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C4EC812C287B5200A96C19 /* DirectorySelectionViewModel.swift */; };
+		D0DDF2A292217F78F891C7D4 /* OpeningProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452BDC81CB23D98E80D6EEF /* OpeningProgress.swift */; };
 		D0EB5CC52C032E3A006341D2 /* ChangedFileListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EB5CC42C032E3A006341D2 /* ChangedFileListItemViewModel.swift */; };
 		D0F9D0872BFFCEC400A18BE4 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F9D0862BFFCEC400A18BE4 /* AppIcon.swift */; };
 		D42BC26C2E0D81F7001F0907 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F940712081A7BB57A233C47A /* RootView.swift */; };
@@ -86,6 +87,7 @@
 		62BD691AA939AAF14F81F6B5 /* CatLogoView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CatLogoView.swift; sourceTree = "<group>"; };
 		710617BAB780D02EE24E3ADB /* Pods-GitCat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat.release.xcconfig"; path = "Target Support Files/Pods-GitCat/Pods-GitCat.release.xcconfig"; sourceTree = "<group>"; };
 		73974C7314E3FABF71BD5E4A /* Pods-GitCatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCatTests.debug.xcconfig"; path = "Target Support Files/Pods-GitCatTests/Pods-GitCatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7452BDC81CB23D98E80D6EEF /* OpeningProgress.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpeningProgress.swift; sourceTree = "<group>"; };
 		78E3C791E58A980F5FDFCA0E /* Pods-GitCat-GitCatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat-GitCatUITests.release.xcconfig"; path = "Target Support Files/Pods-GitCat-GitCatUITests/Pods-GitCat-GitCatUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9246E07309F55872701C2FE4 /* Pods-GitCat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCat.debug.xcconfig"; path = "Target Support Files/Pods-GitCat/Pods-GitCat.debug.xcconfig"; sourceTree = "<group>"; };
 		930C8FC43EE1380BDC40940C /* OpeningRepositoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpeningRepositoryView.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				F36920FFAD66CABC1B48A48B /* WelcomeViewModel.swift */,
 				2D9E3E39E2E143E8E730CF37 /* RecentRepositoryRowView.swift */,
 				930C8FC43EE1380BDC40940C /* OpeningRepositoryView.swift */,
+				7452BDC81CB23D98E80D6EEF /* OpeningProgress.swift */,
 			);
 			name = Welcome;
 			path = Welcome;
@@ -708,6 +711,7 @@
 				94F6C0EF42AA37DB64F8A174 /* OpeningRepositoryView.swift in Sources */,
 				D42BC26C2E0D81F7001F0907 /* RootView.swift in Sources */,
 				012C43C778AC4BA1E91A441A /* RootViewModel.swift in Sources */,
+				D0DDF2A292217F78F891C7D4 /* OpeningProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

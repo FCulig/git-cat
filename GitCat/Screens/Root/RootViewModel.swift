@@ -13,11 +13,23 @@ enum RootScreen {
     case main
 }
 
+// MARK: - OpeningError -
+
+/// Why opening a repository failed, shown in an alert on the welcome screen.
+struct OpeningError {
+    let repositoryName: String
+    let message: String
+}
+
 // MARK: - RootViewModel -
 final class RootViewModel: ObservableObject {
     // MARK: - Private properties -
 
     private static let workspacePathUserDefaultsKey = "WorkspacePath"
+    /// Keeps the loader up long enough not to flash past on fast repositories.
+    private static let minimumOpeningDuration: TimeInterval = 0.6
+    /// Time the finished loader stays up, so "Done" and the resting cat can be seen.
+    private static let lingerAfterOpening: TimeInterval = 0.3
     private let gitService: GitService
     private let recentRepositoriesService: RecentRepositoriesService
     private let directorySelectionViewModel: DirectorySelectionViewModel
@@ -25,7 +37,9 @@ final class RootViewModel: ObservableObject {
     // MARK: - Public properties -
 
     @Published private(set) var screen: RootScreen = .welcome
-    @Published private(set) var openingRepository: RecentRepository?
+    /// Set while a repository is being opened.
+    @Published private(set) var opening: OpeningProgress?
+    @Published private(set) var openingError: OpeningError?
 
     let welcomeViewModel: WelcomeViewModel
     let mainViewModel: MainViewModel
@@ -75,19 +89,47 @@ extension RootViewModel {
     func open(_ repository: RecentRepository) {
         let repository = recentRepositoriesService.add(path: repository.path)
         UserDefaults.standard.setValue(repository.path, forKey: Self.workspacePathUserDefaultsKey)
-
+        
         withAnimation(.easeOut(duration: 0.22)) {
-            openingRepository = repository
+            opening = OpeningProgress(repository: repository)
         }
+        
+        Task { @MainActor [weak self] in await self?.loadOpeningRepository() }
     }
+    
+    func dismissOpeningError() {
+        openingError = nil
+    }
+}
 
-    func openingDidFinish() {
-        gitService.refreshChangedFiles()
+// MARK: - Private methods -
+
+private extension RootViewModel {
+    @MainActor func loadOpeningRepository() async {
+        guard let repository = opening?.repository else { return }
+        
+        do {
+            for step in GitRefreshStep.allCases {
+                try await gitService.refresh(step)
+                opening?.finish(step)
+            }
+        } catch {
+            // Stay on the welcome screen, so another repository can be picked.
+            withAnimation(.easeOut(duration: 0.22)) { opening = nil }
+            openingError = OpeningError(repositoryName: repository.name, message: error.localizedDescription)
+            return
+        }
+        guard let opening else { return }
+        
+        // Let the loader glide to 100%, but keep it up for at least the minimum duration.
+        let shownFor = Date.now.timeIntervalSince(opening.startDate)
+        let remaining = max(OpeningProgress.transitionDuration, Self.minimumOpeningDuration - shownFor)
+        try? await Task.sleep(for: .seconds(remaining + Self.lingerAfterOpening))
+        
         directorySelectionViewModel.isWorkspaceSelected = true
-
         withAnimation(.easeInOut(duration: 0.3)) {
             screen = .main
-            openingRepository = nil
+            self.opening = nil
         }
     }
 }

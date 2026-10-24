@@ -6,6 +6,33 @@
 //
 
 import Combine
+import Foundation
+
+// MARK: - GitRefreshStep -
+
+/// Parts of a full refresh, in the order they run. Opening a repository reports progress after each one.
+enum GitRefreshStep: CaseIterable {
+    case status
+    case upstream
+    case branches
+    
+    var title: String {
+        switch self {
+        case .status: "Reading status"
+        case .upstream: "Comparing with origin"
+        case .branches: "Loading branches"
+        }
+    }
+}
+
+// MARK: - GitError -
+
+/// A git command that failed, with git's own explanation.
+struct GitError: LocalizedError {
+    let message: String
+    
+    var errorDescription: String? { message }
+}
 
 // MARK: - GitService -
 class GitService {
@@ -45,11 +72,18 @@ class GitService {
 // MARK: - Public methods -
 
 extension GitService {
+    /// Refreshes everything on the calling thread. Steps that fail keep their previously published values.
     func refreshChangedFiles() {
-        let output = shellService.execute("\(GitCommands.status.rawValue) --short")
-        changedFilesSubject.send(parseGitStatusShortOutput(output))
-        updateNumberOfCommitsComparedToUpstream()
-        getListOfBranches()
+        GitRefreshStep.allCases.forEach { step in
+            if let result = try? load(step) { publish(result) }
+        }
+    }
+    
+    /// Runs the step's git commands on a background thread, then publishes the result on the main thread.
+    /// Throws `GitError` when git fails, e.g. because the directory is no longer a repository.
+    @MainActor func refresh(_ step: GitRefreshStep) async throws {
+        let result = try await Task.detached(priority: .userInitiated) { [self] in try load(step) }.value
+        publish(result)
     }
     
     func getChangesFor(file: File) -> String {
@@ -82,25 +116,74 @@ extension GitService {
 // MARK: - Private methods -
 
 private extension GitService {
-    func updateNumberOfCommitsComparedToUpstream() {
-        let outputComparedFromOrigin = shellService.execute("\(GitCommands.revList.rawValue) HEAD..origin/main")
-        let numberOfCommitComparedFromOrigin = outputComparedFromOrigin.split(separator: "\n").count
-        
-        guard numberOfCommitComparedFromOrigin == 0 else {
-            commitsComparedToUpstreamSubject.send(-numberOfCommitComparedFromOrigin)
-            return
-        }
-        
-        let outputComparedToOrigin = shellService.execute("\(GitCommands.revList.rawValue) origin/main..HEAD")
-        let numberOfCommitsComparedToOrigin = outputComparedToOrigin.split(separator: "\n").count
-        commitsComparedToUpstreamSubject.send(numberOfCommitsComparedToOrigin)
+    enum RefreshResult {
+        case changedFiles([File])
+        case commitsComparedToUpstream(Int)
+        case branches([String])
     }
     
-    func getListOfBranches() {
-        let output = shellService.execute(GitCommands.listOfBranches.rawValue)
-        let outputPerLine = output.split(separator: "\n")
-        let branches = outputPerLine.map { String($0.split(separator: "'")[1] ) }
-        branchesSubject.send(branches)
+    /// Only runs commands and parses their output, so it is safe to call from any thread.
+    func load(_ step: GitRefreshStep) throws -> RefreshResult {
+        switch step {
+        case .status:
+            .changedFiles(parseGitStatusShortOutput(try run("\(GitCommands.status.rawValue) --short")))
+        case .upstream:
+            .commitsComparedToUpstream(numberOfCommitsComparedToUpstream())
+        case .branches:
+            .branches(parseBranchList(try run(GitCommands.listOfBranches.rawValue)))
+        }
+    }
+    
+    /// Output of a git command that has to succeed.
+    func run(_ command: String) throws -> String {
+        let result = shellService.run(command)
+        guard result.succeeded else {
+            let message = result.errorOutput.trimmingCharacters(in: .whitespacesAndNewlines)
+            throw GitError(message: message.isEmpty ? "\(command) failed" : message)
+        }
+        return result.output
+    }
+    
+    func publish(_ result: RefreshResult) {
+        switch result {
+        case .changedFiles(let files):
+            changedFilesSubject.send(files)
+        case .commitsComparedToUpstream(let count):
+            commitsComparedToUpstreamSubject.send(count)
+        case .branches(let branches):
+            branchesSubject.send(branches)
+        }
+    }
+    
+    /// Negative when behind the upstream, positive when only ahead of it, 0 when in sync or there is no upstream
+    /// (e.g. no remote, or a branch that was never pushed).
+    func numberOfCommitsComparedToUpstream() -> Int {
+        let result = shellService.run(GitCommands.upstreamComparison.rawValue)
+        guard result.succeeded else { return 0 }
+        
+        let counts = result.output.split(whereSeparator: \.isWhitespace).compactMap { Int($0) }
+        guard counts.count == 2 else { return 0 }
+        
+        let (ahead, behind) = (counts[0], counts[1])
+        return behind > 0 ? -behind : ahead
+    }
+}
+
+// MARK: - Parsing git branch list -
+
+private extension GitService {
+    // Example output (tab separated):
+    // main
+    // origin/HEAD    refs/remotes/origin/main
+    // origin/main
+    //
+    // Symbolic refs like origin/HEAD only point to another branch, so they are skipped.
+    func parseBranchList(_ output: String) -> [String] {
+        output.split(separator: "\n").compactMap { line in
+            let columns = line.split(separator: "\t", omittingEmptySubsequences: false)
+            guard let name = columns.first, !name.isEmpty, columns.dropFirst().allSatisfy(\.isEmpty) else { return nil }
+            return String(name)
+        }
     }
 }
 

@@ -24,7 +24,7 @@ struct RootView: View {
             switch viewModel.screen {
             case .welcome:
                 WelcomeView(viewModel: viewModel.welcomeViewModel,
-                            isActive: viewModel.openingRepository == nil)
+                            isActive: viewModel.opening == nil)
                 .transition(.opacity)
             case .main:
                 MainView(viewModel: viewModel.mainViewModel)
@@ -32,9 +32,9 @@ struct RootView: View {
                     .transition(.opacity)
             }
 
-            if let repository = viewModel.openingRepository {
-                OpeningRepositoryView(repository: repository, onFinish: viewModel.openingDidFinish)
-                    .id(repository.id)
+            if let opening = viewModel.opening {
+                OpeningRepositoryView(progress: opening)
+                    .id(opening.repository.id)
                     .ignoresSafeArea()
                     .transition(.opacity)
             }
@@ -42,5 +42,13 @@ struct RootView: View {
         // Without this the window reserves room for the title bar above the fixed size welcome screen.
         .ignoresSafeArea(edges: viewModel.screen == .welcome ? .all : [])
         .background(WindowConfigurator(fixedSize: viewModel.screen == .welcome ? WelcomeView.size : nil))
+        .alert("Couldn't open \(viewModel.openingError?.repositoryName ?? "repository")",
+               isPresented: Binding(get: { viewModel.openingError != nil },
+                                    set: { if !$0 { viewModel.dismissOpeningError() } }),
+               presenting: viewModel.openingError) { _ in
+            Button("OK", role: .cancel) { }
+        } message: { error in
+            Text(error.message)
+        }
     }
 }
