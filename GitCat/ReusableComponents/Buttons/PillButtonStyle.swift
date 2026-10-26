@@ -43,18 +43,46 @@ struct SecondaryPillButtonStyle: ButtonStyle {
     }
 }
 
+// MARK: - PlainPillButtonStyle -
+
+/// Capsule button on a subtle fill, for actions next to a primary pill button or in a toolbar.
+struct PlainPillButtonStyle: ButtonStyle {
+    enum Size {
+        /// 26pt tall, for toolbars.
+        case small
+        /// 32pt tall, same as `PrimaryPillButtonStyle`.
+        case regular
+    }
+
+    var size: Size = .regular
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: size == .small ? 12 : 13, weight: .medium))
+            .foregroundStyle(AppColor.primaryText)
+            .lineLimit(1)
+            .padding(.horizontal, size == .small ? 14 : 18)
+            .frame(height: size == .small ? 26 : 32)
+            .background(Capsule().fill(AppColor.secondaryBackground))
+            .contentShape(Capsule())
+            .opacity(configuration.isPressed ? 0.8 : 1)
+    }
+}
+
 // MARK: - HoverableLabel -
 
 private struct HoverableLabel<Content: View>: View {
+    @Environment(\.isEnabled) private var isEnabled
     @State private var isHovered = false
 
     let configuration: ButtonStyleConfiguration
     @ViewBuilder let content: (Bool) -> Content
 
     var body: some View {
-        content(isHovered)
+        content(isHovered && isEnabled)
             .contentShape(Capsule())
-            .opacity(configuration.isPressed ? 0.85 : 1)
+            .opacity(isEnabled ? (configuration.isPressed ? 0.85 : 1) : 0.35)
+            .animation(.easeOut(duration: 0.25), value: isEnabled)
             .onHover { isHovered = $0 }
             .animation(.easeOut(duration: 0.15), value: isHovered)
     }

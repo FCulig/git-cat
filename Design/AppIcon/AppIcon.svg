@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- macOS icon grid: 824×824 squircle centered on a 1024×1024 canvas, leaving room for the shadow. -->
+  <defs>
+    <filter id="iconShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+    <clipPath id="squircle">
+      <rect x="100" y="100" width="824" height="824" rx="185"/>
+    </clipPath>
+  </defs>
+
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="#000000" filter="url(#iconShadow)"/>
+
+  <!-- "Whiskers" (3b) mark from Logo.dc.html, drawn in its 100×100 view box over the full squircle. -->
+  <g clip-path="url(#squircle)">
+  <g transform="translate(100 100) scale(8.24)">
+    <path fill="#F5F5F7" fill-rule="evenodd" d="
+      M24 66 C21.5 58 21.5 50 25 43 L27 23.5 C27.4 20.6 30 19.8 32 21.6 L42 31
+      C47 29.8 53 29.8 58 31 L68 21.6 C70 19.8 72.6 20.6 73 23.5 L75 43 C78.5 50 78.5 58 76 66 Z
+      M40.5 47 H43.5 V50.5 H47 V53.5 H43.5 V57 H40.5 V53.5 H37 V50.5 H40.5 Z
+      M53 50.5 H63 V53.5 H53 Z
+      M47 58.5 H53 L50 62 Z
+      M30.5 27.5 L31.5 37.5 L38.5 33 Z
+      M69.5 27.5 L68.5 37.5 L61.5 33 Z"/>
+    <path d="M21 55 L9 52.5 M21 60 L10 62 M79 55 L91 52.5 M79 60 L90 62" stroke="#F5F5F7" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M14 70 H47" stroke="#30D158" stroke-width="6" stroke-linecap="round"/>
+    <path d="M53 70 H86" stroke="#FF453A" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  </g>
+</svg>

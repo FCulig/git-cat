@@ -23,6 +23,7 @@ struct OpeningError {
 }
 
 // MARK: - RootViewModel -
+@MainActor
 final class RootViewModel: ObservableObject {
     // MARK: - Private properties -
 
@@ -55,15 +56,10 @@ final class RootViewModel: ObservableObject {
         let directorySelectionViewModel = DirectorySelectionViewModel(fileService: fileService,
                                                                       gitService: gitService,
                                                                       recentRepositoriesService: recentRepositoriesService)
-        let fileListViewModel = FileListViewModel(directorySelectionViewModel: directorySelectionViewModel,
-                                                  changedFilesListViewModel: ChangedFilesListViewModel(gitService: gitService))
-
         self.gitService = gitService
         self.recentRepositoriesService = recentRepositoriesService
         self.directorySelectionViewModel = directorySelectionViewModel
-        self.mainViewModel = MainViewModel(directorySelectionViewModel: directorySelectionViewModel,
-                                           fileListViewModel: fileListViewModel,
-                                           gitService: gitService)
+        self.mainViewModel = MainViewModel(gitService: gitService)
 
         // Workspace selected before recents existed becomes the first recent repository.
         if recentRepositoriesService.currentRecents.isEmpty,

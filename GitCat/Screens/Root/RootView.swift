@@ -28,7 +28,7 @@ struct RootView: View {
                 .transition(.opacity)
             case .main:
                 MainView(viewModel: viewModel.mainViewModel)
-                    .frame(minWidth: WelcomeView.size.width, minHeight: WelcomeView.size.height)
+                    .frame(minWidth: MainView.minimumSize.width, minHeight: MainView.minimumSize.height)
                     .transition(.opacity)
             }
 
@@ -41,7 +41,8 @@ struct RootView: View {
         }
         // Without this the window reserves room for the title bar above the fixed size welcome screen.
         .ignoresSafeArea(edges: viewModel.screen == .welcome ? .all : [])
-        .background(WindowConfigurator(fixedSize: viewModel.screen == .welcome ? WelcomeView.size : nil))
+        .background(WindowConfigurator(fixedSize: viewModel.screen == .welcome ? WelcomeView.size : nil,
+                                       resizableSize: MainView.defaultSize))
         .alert("Couldn't open \(viewModel.openingError?.repositoryName ?? "repository")",
                isPresented: Binding(get: { viewModel.openingError != nil },
                                     set: { if !$0 { viewModel.dismissOpeningError() } }),

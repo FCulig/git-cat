@@ -9,6 +9,10 @@ import SwiftUI
 
 // MARK: - MainView -
 struct MainView: View {
+    static let minimumSize = CGSize(width: 1040, height: 640)
+    /// Size of the window when the repository opens.
+    static let defaultSize = CGSize(width: 1280, height: 800)
+    
     @ObservedObject private var viewModel: MainViewModel
     
     // MARK: - Initializer -
@@ -20,45 +24,14 @@ struct MainView: View {
     // MARK: - Body -
     
     var body: some View {
-        NavigationSplitView {
-            MainMenuView(viewModel: viewModel.mainMenuViewModel)
-        } content: {
-            switch viewModel.selectedItem {
-            case .workingDirectory:
-                FileListView(viewModel: viewModel.fileListViewModel)
-            case .commits:
-                Text("One nice and sunny day you will see commits here.")
-            }
-        } detail: {
-            if let changesViewModel = viewModel.changesViewModel {
-                ChangesView(viewModel: changesViewModel)
-            } else {
-                Text("Please select file from changed file list")
-            }
+        HStack(spacing: 0) {
+            SidebarView(viewModel: viewModel.sidebarViewModel)
+            
+            // History and stashes can't be selected yet.
+            WorkingCopyView(viewModel: viewModel.workingCopyViewModel)
         }
-        .navigationTitle("")
-        .toolbar { toolbarItem }
-    }
-}
-
-// MARK: - Toolbar item
-
-private extension MainView {
-    var toolbarItem: some ToolbarContent {
-        ToolbarItem(placement: .navigation) {
-            HStack(spacing: 3) {
-                Text(viewModel.repoName)
-                    .font(.title2.weight(.bold))
-                
-                DirectorySelectionView(viewModel: viewModel.directorySelectionViewModel) {
-                    Image(systemName: "folder")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 15)
-                        .padding(.top, 3)
-                }
-            }
-            .padding(.leading, 10)
-        }
+        .background(AppColor.background)
+        // The sidebar shares its top row with the window's traffic lights.
+        .ignoresSafeArea()
     }
 }

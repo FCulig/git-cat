@@ -19,6 +19,10 @@ extension AppColor {
     static let checkboxBorder = Color(.checkboxBorder)
     static let line = Color(.hairline)
     static let windowLine = Color(.windowBorder)
+    static let rowSelection = Color(.rowSelection)
+    static let sidebarSelection = Color(.sidebarSelection)
+    static let addedBackground = Color(.addedBackground)
+    static let removedBackground = Color(.removedBackground)
 }
 
 // MARK: - Text -
@@ -36,4 +40,7 @@ extension AppColor {
     static let accentHighlighted = Color(.brandHighlighted)
     static let added = Color(.added)
     static let removed = Color(.removed)
+    static let modified = Color(.modified)
+    static let addedText = Color(.addedText)
+    static let removedText = Color(.removedText)
 }

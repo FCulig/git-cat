@@ -77,3 +77,12 @@ extension ShellService {
         return result
     }
 }
+
+// MARK: - Quoting -
+
+extension String {
+    /// Wrapped in single quotes, so the shell passes it on as a single argument without interpreting it.
+    var shellQuoted: String {
+        "'" + replacingOccurrences(of: "'", with: "'\\''") + "'"
+    }
+}
